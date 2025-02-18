@@ -1,0 +1,3 @@
+kubernetes-truenas-control-node.yaml
+kubernetes-truenas-worker-node.yaml
+talosconfig
