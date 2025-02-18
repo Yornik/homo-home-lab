@@ -6,7 +6,7 @@ talosVersion: v1.9.4
 kubernetesVersion: v1.32.2
 
 clusterName: kubernetes
-endpoint: https://192.168.1.194:6443
+endpoint: https://192.168.1.200:6443
 
 clusterPodNets:
   - "10.69.0.0/16"
@@ -14,7 +14,7 @@ clusterSvcNets:
   - "10.96.0.0/16"
 
 additionalApiServerCertSans: &sans
-  - "192.168.1.194"
+  - "192.168.1.200"
   - "kubeapi.bro-cloud.org"
   - "127.0.0.1"
 additionalMachineCertSans: *sans
@@ -42,7 +42,7 @@ nodes:
             gateway: "192.168.1.1"
         mtu: 1500
         vip:
-          ip: "192.168.1.194"
+          ip: "192.168.1.200"
   - hostname: "truenas-worker-node"
     ipAddress: "192.168.1.193"
     installDisk: "/dev/vda"
