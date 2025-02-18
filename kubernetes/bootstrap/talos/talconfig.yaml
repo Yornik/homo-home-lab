@@ -29,6 +29,9 @@ nodes:
     installDisk: "/dev/vda"
     kernelModules: 
       - name: zfs
+      - name: iscsi_tcp
+      - name: libiscsi
+      - name: libiscsi_tcp
     machineSpec:
       secureboot: false
     talosImageURL: factory.talos.dev/installer/98c912e25a452279d00bd5f060b0b3f6677ee1546f391928bab5ed1e5bd90bd7
@@ -50,6 +53,9 @@ nodes:
     installDisk: "/dev/vda"
     kernelModules: 
       - name: zfs
+      - name: iscsi_tcp
+      - name: libiscsi
+      - name: libiscsi_tcp
     machineSpec:
       secureboot: false
     talosImageURL: factory.talos.dev/installer/98c912e25a452279d00bd5f060b0b3f6677ee1546f391928bab5ed1e5bd90bd7
