@@ -6,7 +6,7 @@ talosVersion: v1.9.4
 kubernetesVersion: v1.32.2
 
 clusterName: kubernetes
-endpoint: https://kubeapi.bro-cloud.org:6443
+endpoint: https://kubesapi.bro-cloud.org:6443
 
 clusterPodNets:
   - "10.69.0.0/16"
@@ -15,7 +15,7 @@ clusterSvcNets:
 
 additionalApiServerCertSans: &sans
   - "192.168.1.200"
-  - "kubeapi.bro-cloud.org"
+  - "kubesapi.bro-cloud.org"
   - "127.0.0.1"
 additionalMachineCertSans: *sans
 
@@ -27,6 +27,8 @@ nodes:
   - hostname: "truenas-control-node"
     ipAddress: "192.168.1.194"
     installDisk: "/dev/vda"
+    kernelModules: 
+      - name: zfs
     machineSpec:
       secureboot: false
     talosImageURL: factory.talos.dev/installer/98c912e25a452279d00bd5f060b0b3f6677ee1546f391928bab5ed1e5bd90bd7
@@ -46,6 +48,8 @@ nodes:
   - hostname: "truenas-worker-node"
     ipAddress: "192.168.1.193"
     installDisk: "/dev/vda"
+    kernelModules: 
+      - name: zfs
     machineSpec:
       secureboot: false
     talosImageURL: factory.talos.dev/installer/98c912e25a452279d00bd5f060b0b3f6677ee1546f391928bab5ed1e5bd90bd7
@@ -75,7 +79,3 @@ controlPlane:
     - "@./patches/controller/admission-controller-patch.yaml"
     - "@./patches/controller/cluster.yaml"
 
-machine:
-  kernel:
-    modules:
-      - name: zfs
