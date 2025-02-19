@@ -27,13 +27,13 @@ nodes:
   - hostname: "truenas-control-node"
     ipAddress: "192.168.1.194"
     installDisk: "/dev/vda"
-    kernelModules: 
+    machineSpec:
+      secureboot: false
+    kernelModules:
       - name: zfs
       - name: iscsi_tcp
       - name: libiscsi
       - name: libiscsi_tcp
-    machineSpec:
-      secureboot: false
     talosImageURL: factory.talos.dev/installer/98c912e25a452279d00bd5f060b0b3f6677ee1546f391928bab5ed1e5bd90bd7
     controlPlane: true
     networkInterfaces:
@@ -51,13 +51,13 @@ nodes:
   - hostname: "truenas-worker-node"
     ipAddress: "192.168.1.193"
     installDisk: "/dev/vda"
-    kernelModules: 
+    machineSpec:
+      secureboot: false
+    kernelModules:
       - name: zfs
       - name: iscsi_tcp
       - name: libiscsi
       - name: libiscsi_tcp
-    machineSpec:
-      secureboot: false
     talosImageURL: factory.talos.dev/installer/98c912e25a452279d00bd5f060b0b3f6677ee1546f391928bab5ed1e5bd90bd7
     controlPlane: false
     networkInterfaces:
