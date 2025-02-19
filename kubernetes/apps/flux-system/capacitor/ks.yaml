@@ -22,7 +22,7 @@ spec:
   timeout: 5m
   wait: true
   prune: true
-  path: "./kubernetes/apps/flux-system/capacitor"
+  path: "."
   sourceRef:
     kind: OCIRepository
     name: capacitor
