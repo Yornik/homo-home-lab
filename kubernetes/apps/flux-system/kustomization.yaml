@@ -8,5 +8,5 @@ components:
 resources:
   - ./flux-operator/ks.yaml
   - ./capacitor/ks.yaml
-patchesStrategicMerge:
-  - ./capacitor/ingress-patch.yaml
+patches:
+  - ./capacitor/ingress_patch.yaml
