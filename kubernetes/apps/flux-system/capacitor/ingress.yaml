@@ -4,6 +4,9 @@ metadata:
   name: capacitor-ingress   # Adjust to match the actual name of your Ingress resource
   namespace: flux-system
   annotations:
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: basic-auth
+    nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required'
     external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
 spec:
   ingressClassName: external
