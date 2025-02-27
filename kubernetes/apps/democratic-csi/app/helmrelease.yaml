@@ -1,0 +1,18 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: democratic-csi
+  namespace: democratic-csi
+spec:
+  releaseName: democratic-csi
+  chart:
+    spec:
+      chart: democratic-csi
+      version: "1.x"
+      sourceRef:
+        kind: HelmRepository
+        name: democratic-csi-repo
+        namespace: flux-system
+  valuesFrom:
+    - kind: Secret
+      name: democratic-csi-values
