@@ -13,6 +13,9 @@ spec:
         kind: HelmRepository
         name: democratic-csi-repo
         namespace: democratic-csi
+  valuesFrom:
+    - kind: Secret
+      name: truenas-api-secret
   values:
     csiDriver:
       name: "org.democratic-csi.nfs"
@@ -37,7 +40,7 @@ spec:
           protocol: https
           host: nas.yornik.nl
           port: 443
-          apiKey: not-valid
+          apiKey: {{ .Values.apiKey | default "" }}
           allowInsecure: false
         zfs:
           datasetParentName: Big_pool/Share
