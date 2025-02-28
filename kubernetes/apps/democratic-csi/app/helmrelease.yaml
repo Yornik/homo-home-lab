@@ -40,10 +40,10 @@ spec:
         driver: freenas-api-nfs
         instance_id: "truenas-nfs-instance"
         httpConnection:
-          protocol: https
-          host: nas.yornik.nl
-          port: 443
-          allowInsecure: false
+          protocol: http
+          host: 192.168.1.42
+          port: 80
+          allowInsecure: true
         zfs:
           datasetParentName: 'Big_pool/k8s'
           detachedSnapshotsDatasetParentName: 'Big_pool/k8s_snapshots'
