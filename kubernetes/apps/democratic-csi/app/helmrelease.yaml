@@ -16,6 +16,8 @@ spec:
   valuesFrom:
     - kind: Secret
       name: truenas-api-secret
+      valuesKey: apiKey
+      targetPath: driver.config.httpConnection.apiKey
   values:
     csiDriver:
       name: "org.democratic-csi.nfs"
@@ -40,7 +42,6 @@ spec:
           protocol: https
           host: nas.yornik.nl
           port: 443
-          apiKey: {{ .Values.apiKey | default "" }}
           allowInsecure: false
         zfs:
           datasetParentName: Big_pool/Share
