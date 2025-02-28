@@ -45,8 +45,8 @@ spec:
           port: 443
           allowInsecure: false
         zfs:
-          datasetParentName: 'Big_pool/Share'
-          detachedSnapshotsDatasetParentName: 'Big_pool/Share/snapshots'
+          datasetParentName: 'Big_pool/k8s'
+          detachedSnapshotsDatasetParentName: 'Big_pool/k8s_snapshots'
           datasetEnableQuotas: true
           datasetEnableReservation: false
           datasetPermissionsMode: "0777"
