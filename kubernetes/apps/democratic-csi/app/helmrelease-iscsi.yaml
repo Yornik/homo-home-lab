@@ -44,10 +44,10 @@ spec:
           detachedSnapshotsDatasetParentName: "Big_Pool/k8s_snapshots/iscsi"
     iscsi:
       targetPortal: "192.168.1.42"
-      nameTemplate: "{{ parameters.[csi.storage.k8s.io/pvc/namespace] }}-{{ parameters.[csi.storage.k8s.io/pvc/name] }}"
+      nameTemplate: "csi-{{ .PVC.Namespace }}-{{ .PVC.Name }}"
     targetGroups:
       - targetGroupPortalGroup: 1
-        targetGroupInitiatorGroup: 1
+        targetGroupInitiatorGroup: 4
         targetGroupAuthType: None
     node:
       hostPID: true
