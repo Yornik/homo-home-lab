@@ -29,7 +29,7 @@ spec:
         volumeBindingMode: Immediate
         allowVolumeExpansion: true
         parameters:
-          fsType: ext4
+          fsType: xfs
     driver:
       config:
         driver: freenas-api-iscsi
@@ -40,11 +40,10 @@ spec:
           port: 443
           allowInsecure: false
         zfs:
-          datasetParentName: "Big_Pool/k8s/iscsi"
-          detachedSnapshotsDatasetParentName: "Big_Pool/k8s_snapshots/iscsi"
+          datasetParentName: 'Big_Pool/k8s/iscsi'
+          detachedSnapshotsDatasetParentName: 'Big_Pool/k8s_snapshots/iscsi'
     iscsi:
       targetPortal: "192.168.1.42"
-      nameTemplate: "{{ name }}"
     targetGroups:
       - targetGroupPortalGroup: 1
         targetGroupInitiatorGroup: 4
