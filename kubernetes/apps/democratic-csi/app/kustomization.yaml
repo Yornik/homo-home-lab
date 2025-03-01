@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - democratic-csi-repo.yaml
   - helmrelease.yaml
+  - nodeconfig.yaml
