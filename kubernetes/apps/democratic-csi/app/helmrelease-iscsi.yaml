@@ -44,8 +44,7 @@ spec:
           detachedSnapshotsDatasetParentName: "Big_Pool/k8s_snapshots/iscsi"
     iscsi:
       targetPortal: "192.168.1.42"
-      namePrefix: "csi-isci-"
-      nameSuffix: "-clustera"
+      nameTemplate: "{{ parameters.[csi.storage.k8s.io/pvc/namespace] }}-{{ parameters.[csi.storage.k8s.io/pvc/name] }}"
     targetGroups:
       - targetGroupPortalGroup: 1
         targetGroupInitiatorGroup: 1
