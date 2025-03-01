@@ -44,10 +44,10 @@ spec:
           detachedSnapshotsDatasetParentName: 'Big_Pool/k8s_snapshots/iscsi'
         iscsi:
           targetPortal: "192.168.1.42"
-        targetGroups:
-          - targetGroupPortalGroup: 1
-            targetGroupInitiatorGroup: 4
-            targetGroupAuthType: None
+          targetGroups:
+            - targetGroupPortalGroup: 1
+              targetGroupInitiatorGroup: 4
+              targetGroupAuthType: None
     node:
       hostPID: true
       driver:
