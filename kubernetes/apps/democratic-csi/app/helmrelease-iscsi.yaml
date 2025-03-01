@@ -46,7 +46,7 @@ spec:
           targetPortal: "192.168.1.42"
           targetGroups:
             - targetGroupPortalGroup: 1
-              targetGroupInitiatorGroup: 5
+              targetGroupInitiatorGroup: 6
               targetGroupAuthType: None
     node:
       hostPID: true
