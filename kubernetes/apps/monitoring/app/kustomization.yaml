@@ -5,4 +5,4 @@ resources:
   - repo.yaml
   - helmrelease.yaml
   - ingress.yaml
-  - secrect.sops.yaml
+  - secrect.yaml
