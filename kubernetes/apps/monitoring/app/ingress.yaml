@@ -42,4 +42,4 @@ spec:
               service:
                 name: monitoring-kube-prometheus-prometheus    # This should match the service name that the ingress should route to
                 port:
-                  name: 9090
+                  number: 9090
