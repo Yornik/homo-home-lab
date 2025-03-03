@@ -15,6 +15,31 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: grafana    # This should match the service name that the ingress should route to
+                name: monitoring-grafana    # This should match the service name that the ingress should route to
                 port:
                   name: http
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: promethus-ingress
+  namespace: monitoring
+  annotations:
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: basic-auth
+    nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required'
+    external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+spec:
+  ingressClassName: external
+  rules:
+    - host: "promethus.bro-cloud.org"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: monitoring-kube-prometheus-prometheus    # This should match the service name that the ingress should route to
+                port:
+                  name: 9090
