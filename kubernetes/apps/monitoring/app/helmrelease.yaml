@@ -17,14 +17,12 @@ spec:
     grafana:
       admin:
         existingSecret: "grafana-admin-credentials"
-    prometheusu:
-      storageSpec:
-       volumeClaimTemplate:
-         spec:
-           storageClassName: "truenas-iscsi"
-           accessModes: ["ReadWriteOnce"]
-           resources:
-            requests:
-              storage: 35Gi
+    prometheus:
+      defaultRules:
+        create: true
+        rules:
+          kubernetesSystem: true
+        disabled:
+          - KubeProxyDown
       prometheusSpec:
-        scrapeInterval: "10s"
+        scrapeInterval: "30s"
