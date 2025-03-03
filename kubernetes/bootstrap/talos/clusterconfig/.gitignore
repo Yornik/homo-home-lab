@@ -1,3 +1,8 @@
 kubernetes-truenas-control-node.yaml
 kubernetes-truenas-worker-node.yaml
 talosconfig
+kubernetes-NucBoxG3-plus-control-1.yaml
+kubernetes-g3-plus-control-1.yaml
+kubernetes-g3-plus-control-2.yaml
+kubernetes-g3-plus-worker-1.yaml
+kubernetes-g3-plus-worker-2.yaml

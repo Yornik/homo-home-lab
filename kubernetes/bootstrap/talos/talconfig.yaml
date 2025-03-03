@@ -34,7 +34,7 @@ nodes:
       - name: iscsi_tcp
       - name: libiscsi
       - name: libiscsi_tcp
-    talosImageURL: factory.talos.dev/installer/98c912e25a452279d00bd5f060b0b3f6677ee1546f391928bab5ed1e5bd90bd7
+    talosImageURL: factory.talos.dev/installer/49979430c7f87a2ece824259a62b2f36ebbd68a2ca1a996fb60bc8a674af5d18
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -48,24 +48,98 @@ nodes:
         mtu: 1500
         vip:
           ip: "192.168.1.200"
-  - hostname: "truenas-worker-node"
+  - hostname: "g3-plus-control-1"
     ipAddress: "192.168.1.193"
-    installDisk: "/dev/vda"
+    installDisk: "/dev/nvme0n1"
     machineSpec:
       secureboot: false
     kernelModules:
+      - name: i915
       - name: zfs
       - name: iscsi_tcp
       - name: libiscsi
       - name: libiscsi_tcp
-    talosImageURL: factory.talos.dev/installer/98c912e25a452279d00bd5f060b0b3f6677ee1546f391928bab5ed1e5bd90bd7
-    controlPlane: false
+    talosImageURL: factory.talos.dev/installer/df16dbe68ae524b64410d7ffc8091dbeede451d759f0e477d08770a12e05c684
+    controlPlane: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "00:a0:98:04:dd:5a"
+          hardwareAddr: "e0:51:d8:19:07:14"
         dhcp: false
         addresses:
           - "192.168.1.193/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "192.168.1.1"
+        mtu: 1500
+        vip:
+          ip: "192.168.1.200"
+  - hostname: "g3-plus-control-2"
+    ipAddress: "192.168.1.195"
+    installDisk: "/dev/nvme0n1"
+    machineSpec:
+      secureboot: false
+    kernelModules:
+      - name: i915
+      - name: zfs
+      - name: iscsi_tcp
+      - name: libiscsi
+      - name: libiscsi_tcp
+    talosImageURL: factory.talos.dev/installer/df16dbe68ae524b64410d7ffc8091dbeede451d759f0e477d08770a12e05c684
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "e0:51:d8:19:10:2f"
+        dhcp: false
+        addresses:
+          - "192.168.1.195/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "192.168.1.1"
+        mtu: 1500
+        vip:
+          ip: "192.168.1.200"
+  - hostname: "g3-plus-worker-1"
+    ipAddress: "192.168.1.196"
+    installDisk: "/dev/nvme0n1"
+    machineSpec:
+      secureboot: false
+    kernelModules:
+      - name: i915
+      - name: zfs
+      - name: iscsi_tcp
+      - name: libiscsi
+      - name: libiscsi_tcp
+    talosImageURL: factory.talos.dev/installer/df16dbe68ae524b64410d7ffc8091dbeede451d759f0e477d08770a12e05c684
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "e0:51:d8:19:01:82"
+        dhcp: false
+        addresses:
+          - "192.168.1.196/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "192.168.1.1"
+        mtu: 1500
+  - hostname: "g3-plus-worker-2"
+    ipAddress: "192.168.1.197"
+    installDisk: "/dev/nvme0n1"
+    machineSpec:
+      secureboot: false
+    kernelModules:
+      - name: i915
+      - name: zfs
+      - name: iscsi_tcp
+      - name: libiscsi
+      - name: libiscsi_tcp
+    talosImageURL: factory.talos.dev/installer/df16dbe68ae524b64410d7ffc8091dbeede451d759f0e477d08770a12e05c684
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "e0:51:d8:19:10:05"
+        dhcp: false
+        addresses:
+          - "192.168.1.197/24"
         routes:
           - network: "0.0.0.0/0"
             gateway: "192.168.1.1"
