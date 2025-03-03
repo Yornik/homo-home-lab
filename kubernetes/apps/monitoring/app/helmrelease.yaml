@@ -18,11 +18,5 @@ spec:
       admin:
         existingSecret: "grafana-admin-credentials"
     prometheus:
-      defaultRules:
-        create: true
-        rules:
-          kubernetesSystem: true
-        disabled:
-          - KubeProxyDown
       prometheusSpec:
-        scrapeInterval: "30s"
+        scrapeInterval: "15s"
