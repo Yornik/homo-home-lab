@@ -1,0 +1,30 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: monitoring
+  namespace: monitoring
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: "69.7.2"
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-system
+  values:
+    grafana:
+      admin:
+        existingSecret: "grafana-admin-credentials"
+    prometheusu:
+      storageSpec:
+       volumeClaimTemplate:
+         spec:
+           storageClassName: "truenas-iscsi"
+           accessModes: ["ReadWriteOnce"]
+           resources:
+            requests:
+              storage: 35Gi
+      prometheusSpec:
+        scrapeInterval: "10s"
