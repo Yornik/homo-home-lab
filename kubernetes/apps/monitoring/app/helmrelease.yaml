@@ -70,6 +70,7 @@ spec:
         retention_period: 336h
     ingester:
       replicas: 2
+      maxUnavailable: 1
       resources:
         requests:
           cpu: "500m"
@@ -79,6 +80,7 @@ spec:
           memory: "2Gi"
     distributor:
       replicas: 2
+      maxUnavailable: 1
       resources:
         requests:
           cpu: "250m"
