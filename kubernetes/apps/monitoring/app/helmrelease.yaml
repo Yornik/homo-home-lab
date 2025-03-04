@@ -88,6 +88,7 @@ spec:
           memory: "1Gi"
     querier:
       replicas: 2
+      maxUnavailable: 1
       resources:
         requests:
           cpu: "500m"
