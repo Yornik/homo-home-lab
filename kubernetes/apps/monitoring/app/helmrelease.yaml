@@ -89,6 +89,9 @@ spec:
       persistence:
         enabled: true
         storageClassName: truenas-nfs
+        accessModes:
+          - ReadWriteOnce
+        size: 10Gi
     distributor:
       replicas: 2
       maxUnavailable: 1
@@ -130,14 +133,23 @@ spec:
       persistence:
         enabled: true
         storageClassName: truenas-nfs
+        accessModes:
+          - ReadWriteOnce
+        size: 20Gi
     indexGateway:
       persistence:
         enabled: true
         storageClassName: truenas-nfs
+        accessModes:
+          - ReadWriteOnce
+        size: 10Gi
     ruler:
       persistence:
         enabled: true
         storageClassName: truenas-nfs
+        accessModes:
+          - ReadWriteOnce
+        size: 5Gi
     serviceAccount:
       create: true
 ---
