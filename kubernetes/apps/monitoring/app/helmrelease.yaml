@@ -134,7 +134,6 @@ spec:
       persistence:
         enabled: true
         storageClass: truenas-nfs
-    distributor:
     ruler:
       persistence:
         enabled: true
