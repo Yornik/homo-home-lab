@@ -86,6 +86,9 @@ spec:
         limits:
           cpu: "1"
           memory: "2Gi"
+      persistence:
+        enabled: true
+        existingClaim: loki-shared-nfs-pvc
     distributor:
       replicas: 2
       maxUnavailable: 1
@@ -124,5 +127,16 @@ spec:
         limits:
           cpu: "1"
           memory: "4Gi"
+      persistence:
+        enabled: true
+        existingClaim: loki-shared-nfs-pvc
+    indexGateway:
+      persistence:
+        enabled: true
+        existingClaim: loki-shared-nfs-pvc
+    ruler:
+      persistence:
+        enabled: true
+        existingClaim: loki-shared-nfs-pvc
     serviceAccount:
       create: true
