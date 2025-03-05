@@ -164,8 +164,6 @@ spec:
           - cri: {}
     extraArgs:
       - -config.expand-env=true
-    podLabels:
-      app.kubernetes.io/name: promtail
     tolerations:
       - effect: NoSchedule
         key: node-role.kubernetes.io/control-plane
