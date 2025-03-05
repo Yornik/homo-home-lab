@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: prometheus-data
+  name: loki-shared-nfs-pvc
   namespace: monitoring
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
-      storage: 35Gi
-  storageClassName: "truenas-iscsi"
+      storage: 50Gi
+  volumeName: loki-shared-nfs-pv
