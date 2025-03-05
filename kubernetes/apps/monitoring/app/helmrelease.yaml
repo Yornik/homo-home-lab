@@ -88,7 +88,7 @@ spec:
           memory: "2Gi"
       persistence:
         enabled: true
-        storageClass: truenas-nfs
+        storageClassName: truenas-nfs
     distributor:
       replicas: 2
       maxUnavailable: 1
@@ -129,15 +129,15 @@ spec:
           memory: "4Gi"
       persistence:
         enabled: true
-        storageClass: truenas-nfs
+        storageClassName: truenas-nfs
     indexGateway:
       persistence:
         enabled: true
-        storageClass: truenas-nfs
+        storageClassName: truenas-nfs
     ruler:
       persistence:
         enabled: true
-        storageClass: truenas-nfs
+        storageClassName: truenas-nfs
     serviceAccount:
       create: true
 ---
