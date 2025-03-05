@@ -99,9 +99,6 @@ spec:
         limits:
           cpu: "500m"
           memory: "1Gi"
-      persistence:
-        enabled: true
-        storageClass: truenas-nfs
     querier:
       replicas: 2
       maxUnavailable: 1
