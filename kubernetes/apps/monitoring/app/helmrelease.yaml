@@ -171,7 +171,8 @@ spec:
         namespace: flux-system
   values:
     config:
-      lokiAddress: "http://loki-loki-distributed-gateway.monitoring.svc.cluster.local:3100/loki/api/v1/push"
+      clients:
+        - url: "http://loki-loki-distributed-gateway.monitoring.svc.cluster.local:3100/loki/api/v1/push"
       snippets:
         pipelineStages:
           - cri: {}
