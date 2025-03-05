@@ -170,6 +170,9 @@ spec:
         name: grafana
         namespace: flux-system
   values:
+    auth_enabled: false
+    ingester_client:
+      remote_timeout: 30s
     config:
       clients:
         - url: "http://loki-loki-distributed-gateway.monitoring.svc.cluster.local:3100/loki/api/v1/push"
