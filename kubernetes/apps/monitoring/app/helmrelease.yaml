@@ -99,6 +99,9 @@ spec:
         limits:
           cpu: "500m"
           memory: "1Gi"
+      persistence:
+        enabled: true
+        storageClass: truenas-nfs
     querier:
       replicas: 2
       maxUnavailable: 1
@@ -140,3 +143,36 @@ spec:
         storageClass: truenas-nfs
     serviceAccount:
       create: true
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: promtail
+  namespace: monitoring
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: promtail
+      version: "6.16.6"
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+  values:
+    config:
+      lokiAddress: "http://loki-loki-distributed-gateway.monitoring:3100/loki/api/v1/push"
+      snippets:
+        pipelineStages:
+          - cri: {}
+    extraArgs:
+      - -config.expand-env=true
+    podLabels:
+      app.kubernetes.io/name: promtail
+    tolerations:
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/control-plane
+        operator: Exists
+    serviceMonitor:
+      enabled: true
+
