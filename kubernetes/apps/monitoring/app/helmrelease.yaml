@@ -88,7 +88,7 @@ spec:
           memory: "2Gi"
       persistence:
         enabled: true
-        existingClaim: loki-shared-nfs-pvc
+        storageClass: truenas-nfs
     distributor:
       replicas: 2
       maxUnavailable: 1
@@ -129,14 +129,14 @@ spec:
           memory: "4Gi"
       persistence:
         enabled: true
-        existingClaim: loki-shared-nfs-pvc
+        storageClass: truenas-nfs
     indexGateway:
       persistence:
         enabled: true
-        existingClaim: loki-shared-nfs-pvc
+        storageClass: truenas-nfs
     ruler:
       persistence:
         enabled: true
-        existingClaim: loki-shared-nfs-pvc
+        storageClass: truenas-nfs
     serviceAccount:
       create: true
