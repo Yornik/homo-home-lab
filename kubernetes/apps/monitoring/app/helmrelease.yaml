@@ -52,7 +52,7 @@ spec:
     - kind: Secret
       name: tibber-api-secret
       valuesKey: TIBBER_API_TOKEN  # Key inside the Secret
-      targetPath: tibber.tibberToken      # Where it should go in Helm values
+      targetPath: tibberToken      # Where it should go in Helm values
   values:
     service:
       port: 9000
