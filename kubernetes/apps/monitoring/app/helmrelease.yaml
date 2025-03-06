@@ -55,9 +55,12 @@ spec:
         kind: HelmRepository
         name: tibber-exporter
         namespace: flux-system
+  valuesFrom:
+    - kind: Secret
+      name: tibber-api-secret
+      valuesKey: TIBBER_API_TOKEN  # Key inside the Secret
+      targetPath: tibberToken      # Where it should go in Helm values
   values:
-    tibber:
-      existingSecret: "tibber-api-secret"
     service:
       port: 9000
       type: ClusterIP
