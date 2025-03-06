@@ -22,7 +22,7 @@ spec:
         additionalScrapeConfigs:
           - job_name: "tibber"
             static_configs:
-              - targets: ["tibber-exporter.monitoring.svc.cluster.local"]
+              - targets: ["tibber-exporter.monitoring.svc.cluster.local:80"]
         scrapeInterval: "15s"
         storageSpec:
           volumeClaimTemplate:
