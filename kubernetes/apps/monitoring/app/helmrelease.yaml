@@ -90,7 +90,7 @@ spec:
         enabled: true
         claims:
           - name: data
-            size: 50Gi              
+            size: 15Gi              
             storageClass: truenas-iscsi    
     distributor:
       replicas: 2
