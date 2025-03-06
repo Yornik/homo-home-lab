@@ -19,6 +19,10 @@ spec:
         existingSecret: "grafana-admin-credentials"
     prometheus:
       prometheusSpec:
+        additionalScrapeConfigs:
+          - job_name: "tibber"
+            static_configs:
+              - targets: ["tibber-exporter.monitoring.svc.cluster.local:9000"]
         scrapeInterval: "15s"
         storageSpec:
           volumeClaimTemplate:
@@ -28,6 +32,30 @@ spec:
               resources:
                 requests:
                   storage: 35Gi          
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: tibber-exporter
+  namespace: monitoring
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: tibber-exporter
+      version: "3.9.0"
+      sourceRef:
+        kind: HelmRepository
+        name: tibber-exporter
+        namespace: flux-system
+  values:
+    tibber:
+      existingSecret: "tibber-api-secret"
+    service:
+      port: 9000
+      type: ClusterIP
+    serviceMonitor:
+      enabled: true
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
