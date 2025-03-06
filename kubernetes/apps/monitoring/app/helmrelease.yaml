@@ -86,13 +86,12 @@ spec:
         limits:
           cpu: "1"
           memory: "2Gi"
-        ingester:
-    persistence:
-      enabled: true
-      claims:
-        - name: data
-          size: 50Gi              
-          storageClass: truenas-iscsi    
+      persistence:
+        enabled: true
+        claims:
+          - name: data
+            size: 15Gi              
+            storageClass: truenas-iscsi    
     distributor:
       replicas: 2
       maxUnavailable: 1
