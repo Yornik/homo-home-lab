@@ -48,18 +48,17 @@ spec:
         kind: HelmRepository
         name: tibber-exporter
         namespace: flux-system
+  valuesFrom:
+    - kind: Secret
+      name: tibber-api-secret
+      valuesKey: TIBBER_API_TOKEN  # Key inside the Secret
+      targetPath: tibberToken      # Where it should go in Helm values
   values:
-    tibber:
-      tibberToken: "${TIBBER_API_TOKEN}"  # This will be replaced with the secret value
     service:
       port: 9000
       type: ClusterIP
     serviceMonitor:
       enabled: true
-  postBuild:
-    substituteFrom:
-      - kind: Secret
-        name: tibber-api-secret  # Name of the Secret containing the API token
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
