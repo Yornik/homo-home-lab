@@ -17,6 +17,13 @@ spec:
     grafana:
       admin:
         existingSecret: "grafana-admin-credentials"
+      persistence:
+        enabled: true
+        type: sts
+        storageClassName: "truenas-iscsi"
+        accessModes:
+          - ReadWriteOnce
+        size: 8Gi
     prometheus:
       prometheusSpec:
         scrapeInterval: "15s"
