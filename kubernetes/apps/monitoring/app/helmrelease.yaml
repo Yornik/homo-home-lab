@@ -86,16 +86,13 @@ spec:
         limits:
           cpu: "1"
           memory: "2Gi"
-      persistence:
-        enabled: false  # Disable per-pod PVC creation
-      extraVolumes:
-        - name: loki-share
-          persistentVolumeClaim:
-            claimName: loki-shared-nfs
-      extraVolumeMounts:
-        - name: loki-share
-          mountPath: /var/loki
-      extraVolumeOverrides: []
+        ingester:
+    persistence:
+      enabled: true
+      claims:
+        - name: data
+          size: 50Gi              
+          storageClass: truenas-iscsi    
     distributor:
       replicas: 2
       maxUnavailable: 1
