@@ -29,7 +29,7 @@ spec:
         additionalScrapeConfigs:
           - job_name: "tibber"
             static_configs:
-              - targets: ["tibber-exporter.monitoring.svc.cluster.local:9000"]
+              - targets: ["tibber-exporter.monitoring.svc.cluster.local:80"]
         scrapeInterval: "15s"
         storageSpec:
           volumeClaimTemplate:
@@ -61,11 +61,22 @@ spec:
       valuesKey: TIBBER_API_TOKEN  # Key inside the Secret
       targetPath: tibberToken      # Where it should go in Helm values
   values:
-    service:
-      port: 9000
-      type: ClusterIP
     serviceMonitor:
       enabled: true
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tibber-exporter
+  namespace: monitoring
+spec:
+  selector:
+    app.kubernetes.io/name: tibber-exporter
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
