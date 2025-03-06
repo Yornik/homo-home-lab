@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: loki-shared-nfs
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/name: loki
+    app.kubernetes.io/instance: loki
+spec:
+  accessModes:
+    - ReadWriteMany  # Needed for shared storage across multiple pods
+  resources:
+    requests:
+      storage: 50Gi  # Adjust based on your expected retention and growth
+  storageClassName: truenas-nfs  # Ensure this matches your NFS setup
+
