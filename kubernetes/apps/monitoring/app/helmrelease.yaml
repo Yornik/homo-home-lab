@@ -95,6 +95,7 @@ spec:
       extraVolumeMounts:
         - name: loki-share
           mountPath: /var/loki
+      extraVolumeOverrides: []
     distributor:
       replicas: 2
       maxUnavailable: 1
