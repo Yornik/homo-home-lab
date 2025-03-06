@@ -72,7 +72,7 @@ spec:
         filesystem:
           directory: /var/loki/chunks
       compactor:
-        working_directory: /tmp/loki/compactor
+        working_directory: /var/loki/compactor
         shared_store: filesystem
       limits_config:
         retention_period: 336h
@@ -87,11 +87,14 @@ spec:
           cpu: "1"
           memory: "2Gi"
       persistence:
-        enabled: true
-        storageClassName: truenas-nfs
-        accessModes:
-          - ReadWriteMany
-        size: 10Gi
+        enabled: false  # Disable per-pod PVC creation
+      extraVolumes:
+        - name: loki-share
+          persistentVolumeClaim:
+            claimName: loki-shared-nfs
+      extraVolumeMounts:
+        - name: loki-share
+          mountPath: /var/loki
     distributor:
       replicas: 2
       maxUnavailable: 1
@@ -121,6 +124,15 @@ spec:
         limits:
           cpu: "500m"
           memory: "1Gi"
+      persistence:
+        enabled: false  # Disable per-pod PVC creation
+      extraVolumes:
+        - name: loki-share
+          persistentVolumeClaim:
+            claimName: loki-shared-nfs
+      extraVolumeMounts:
+        - name: loki-share
+          mountPath: /var/loki
     compactor:
       compaction_interval: 5m
       replicas: 1
@@ -132,25 +144,34 @@ spec:
           cpu: "1"
           memory: "4Gi"
       persistence:
-        enabled: true
-        storageClassName: truenas-nfs
-        accessModes:
-          - ReadWriteMany
-        size: 20Gi
+        enabled: false  # Disable per-pod PVC creation
+      extraVolumes:
+        - name: loki-share
+          persistentVolumeClaim:
+            claimName: loki-shared-nfs
+      extraVolumeMounts:
+        - name: loki-share
+          mountPath: /var/loki
     indexGateway:
       persistence:
-        enabled: true
-        storageClassName: truenas-nfs
-        accessModes:
-          - ReadWriteOnce
-        size: 10Gi
+        enabled: false  # Disable per-pod PVC creation
+      extraVolumes:
+        - name: loki-share
+          persistentVolumeClaim:
+            claimName: loki-shared-nfs
+      extraVolumeMounts:
+        - name: loki-share
+          mountPath: /var/loki
     ruler:
       persistence:
-        enabled: true
-        storageClassName: truenas-nfs
-        accessModes:
-          - ReadWriteMany
-        size: 5Gi
+        enabled: false  # Disable per-pod PVC creation
+      extraVolumes:
+        - name: loki-share
+          persistentVolumeClaim:
+            claimName: loki-shared-nfs
+      extraVolumeMounts:
+        - name: loki-share
+          mountPath: /var/loki
     serviceAccount:
       create: true          
 ---
