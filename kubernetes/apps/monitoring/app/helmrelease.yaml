@@ -22,7 +22,7 @@ spec:
         additionalScrapeConfigs:
           - job_name: "tibber"
             static_configs:
-              - targets: ["tibber-exporter-scraper.monitoring.svc.cluster.local:80"]
+              - targets: ["tibber-exporter-scraper.monitoring.svc.cluster.local:8080"]
         scrapeInterval: "15s"
         storageSpec:
           volumeClaimTemplate:
@@ -67,8 +67,8 @@ spec:
     app.kubernetes.io/name: tibber-exporter
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 80
+      port: 8080
+      targetPort: 8080
   type: ClusterIP
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
