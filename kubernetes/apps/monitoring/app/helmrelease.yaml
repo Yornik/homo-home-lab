@@ -113,6 +113,7 @@ spec:
       pattern_ingester:
         enabled: true
       limits_config:
+        volume_enabled: true
         allow_structured_metadata: true
         retention_period: 744h  # 31 days retention
     deploymentMode: SimpleScalable
@@ -129,6 +130,8 @@ spec:
         storageClass: "truenas-iscsi"
         size: 125Gi
     gateway:
+      auth:
+        enabled: false
       service:
         type: LoadBalancer
 ---
@@ -153,7 +156,7 @@ spec:
       remote_timeout: 30s
     config:
       clients:
-        - url: "http://loki-loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push"
+        - url: "http://loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push"
       snippets:
         pipelineStages:
           - cri: {}
