@@ -87,139 +87,50 @@ spec:
   interval: 10m
   chart:
     spec:
-      chart: loki-distributed
-      version: "0.80.1"
+      chart: loki
+      version: "6.27.0"
       sourceRef:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
   values:
-    config:
-      common:
-        replication_factor: 1
-        ring:
-          kvstore:
-            store: memberlist
-        storage:
-          filesystem:
-            chunks_directory: /var/loki/chunks
-            rules_directory: /var/loki/rules
-      schema_config:
+    loki:
+      commonConfig:
+        replication_factor: 3
+      schemaConfig:
         configs:
-          - from: "2023-01-01"
+          - from: "2024-04-01"
             store: tsdb
-            object_store: filesystem
-            schema: v12
+            object_store: s3
+            schema: v13
             index:
-              prefix: tsdb_index_
+              prefix: loki_index_
               period: 24h
-      storage_config:
-        tsdb_shipper:
-          active_index_directory: /var/loki/tsdb-index
-          cache_location: /var/loki/tsdb-cache
-          shared_store: filesystem
-        filesystem:
-          directory: /var/loki/chunks
-      compactor:
-        working_directory: /var/loki/compactor
-        shared_store: filesystem
+      ingester:
+        chunk_encoding: snappy
+      querier:
+        max_concurrent: 4
+      pattern_ingester:
+        enabled: true
       limits_config:
-        retention_period: 336h
-    ingester:
+        allow_structured_metadata: true
+        retention_period: 744h  # 31 days retention
+    deploymentMode: SimpleScalable
+    backend:
       replicas: 2
-      maxUnavailable: 1
-      resources:
-        requests:
-          cpu: "500m"
-          memory: "1Gi"
-        limits:
-          cpu: "1"
-          memory: "2Gi"
+    read:
+      replicas: 2
+    write:
+      replicas: 3
+    minio:
+      enabled: true
       persistence:
         enabled: true
-        claims:
-          - name: data
-            size: 15Gi              
-            storageClass: truenas-iscsi    
-    distributor:
-      replicas: 2
-      maxUnavailable: 1
-      resources:
-        requests:
-          cpu: "250m"
-          memory: "512Mi"
-        limits:
-          cpu: "500m"
-          memory: "1Gi"
-    querier:
-      replicas: 2
-      maxUnavailable: 1
-      resources:
-        requests:
-          cpu: "500m"
-          memory: "1Gi"
-        limits:
-          cpu: "1"
-          memory: "2Gi"
-    queryFrontend:
-      replicas: 1
-      resources:
-        requests:
-          cpu: "250m"
-          memory: "512Mi"
-        limits:
-          cpu: "500m"
-          memory: "1Gi"
-      persistence:
-        enabled: false  # Disable per-pod PVC creation
-      extraVolumes:
-        - name: loki-share
-          persistentVolumeClaim:
-            claimName: loki-shared-nfs
-      extraVolumeMounts:
-        - name: loki-share
-          mountPath: /var/loki
-    compactor:
-      compaction_interval: 5m
-      replicas: 1
-      resources:
-        requests:
-          cpu: "500m"
-          memory: "2Gi"
-        limits:
-          cpu: "1"
-          memory: "4Gi"
-      persistence:
-        enabled: false  # Disable per-pod PVC creation
-      extraVolumes:
-        - name: loki-share
-          persistentVolumeClaim:
-            claimName: loki-shared-nfs
-      extraVolumeMounts:
-        - name: loki-share
-          mountPath: /var/loki
-    indexGateway:
-      persistence:
-        enabled: false  # Disable per-pod PVC creation
-      extraVolumes:
-        - name: loki-share
-          persistentVolumeClaim:
-            claimName: loki-shared-nfs
-      extraVolumeMounts:
-        - name: loki-share
-          mountPath: /var/loki
-    ruler:
-      persistence:
-        enabled: false  # Disable per-pod PVC creation
-      extraVolumes:
-        - name: loki-share
-          persistentVolumeClaim:
-            claimName: loki-shared-nfs
-      extraVolumeMounts:
-        - name: loki-share
-          mountPath: /var/loki
-    serviceAccount:
-      create: true          
+        storageClass: "truenas-iscsi"
+        size: 125Gi
+    gateway:
+      service:
+        type: LoadBalancer
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -242,7 +153,7 @@ spec:
       remote_timeout: 30s
     config:
       clients:
-        - url: "http://loki-loki-distributed-gateway.monitoring.svc.cluster.local/loki/api/v1/push"
+        - url: "http://loki-loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push"
       snippets:
         pipelineStages:
           - cri: {}
