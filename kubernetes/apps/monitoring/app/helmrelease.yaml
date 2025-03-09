@@ -173,6 +173,12 @@ spec:
                 - drop:
                     source: status
                     expression: '204'
+                - drop:
+                    expression: '"/(healthz|favicon.ico)"'
+                - drop:
+                    expression: '"HEAD / HTTP/1.1"'
+                - drop:
+                    expression: '"GET / HTTP/1.1"'
     extraArgs:
       - -config.expand-env=true
     tolerations:
