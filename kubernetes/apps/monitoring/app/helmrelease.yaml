@@ -156,36 +156,36 @@ spec:
     config:
       clients:
         - url: "http://loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push"
-    snippets:
-      extraRelabelConfigs: |
-        - source_labels: [__meta_kubernetes_pod_container_name]
-          target_label: container
-        - source_labels: [__meta_kubernetes_pod_name]
-          target_label: pod
-      pipelineStages:
-        - cri: {}
-        - match:
-            selector: '{container="nginx"}'
-            stages:
-              - regex:
-                  expression: '^(?P<remote_addr>[^ ]*) - (?P<remote_user>[^ ]*) \[(?P<time>[^\]]*)\] "(?P<method>[A-Z]+) (?P<uri>[^ ]*) HTTP/[^"]+" (?P<status>\d{3}) (?P<body_bytes_sent>\d+).*'
-              - labels:
-                  method: ""
-                  uri: ""
-                  status: ""
-              - drop:
-                  expression: '"/(healthz|favicon.ico)"'
-              - drop:
-                  expression: '"HEAD / HTTP/1.1"'
-              - drop:
-                  expression: '"GET / HTTP/1.1"'
-              - drop:
-                  expression: '^\[.*\]\s+204\s+'
-        - match:
-            selector: '{pod=~"loki-canary.*"}'
-            stages:
-              - drop:
-                  expression: '.*'
+      snippets:
+        extraRelabelConfigs: |
+          - source_labels: [__meta_kubernetes_pod_container_name]
+            target_label: container
+          - source_labels: [__meta_kubernetes_pod_name]
+            target_label: pod
+        pipelineStages:
+          - cri: {}
+          - match:
+              selector: '{container="nginx"}'
+              stages:
+                - regex:
+                    expression: '^(?P<remote_addr>[^ ]*) - (?P<remote_user>[^ ]*) \[(?P<time>[^\]]*)\] "(?P<method>[A-Z]+) (?P<uri>[^ ]*) HTTP/[^"]+" (?P<status>\d{3}) (?P<body_bytes_sent>\d+).*'
+                - labels:
+                    method: ""
+                    uri: ""
+                    status: ""
+                - drop:
+                    expression: '"/(healthz|favicon.ico)"'
+                - drop:
+                    expression: '"HEAD / HTTP/1.1"'
+                - drop:
+                    expression: '"GET / HTTP/1.1"'
+                - drop:
+                    expression: '^\[.*\]\s+204\s+'
+          - match:
+              selector: '{pod=~"loki-canary.*"}'
+              stages:
+                - drop:
+                    expression: '.*'
     extraArgs:
       - -config.expand-env=true
     tolerations:
