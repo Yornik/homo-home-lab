@@ -153,14 +153,31 @@ spec:
         namespace: flux-system
   values:
     auth_enabled: false
-    ingester_client:
-      remote_timeout: 30s
     config:
       clients:
         - url: "http://loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push"
       snippets:
         pipelineStages:
           - cri: {}
+          - match:
+              selector: '{job=~".*nginx.*"}'
+              stages:
+                - drop:
+                    expression: '"/(healthz|favicon.ico)"'
+                - drop:
+                    expression: '"HEAD / HTTP/1.1"'
+                - drop:
+                    expression: '"GET / HTTP/1.1"'
+                - drop:
+                    expression: '^\[.*\]\s+204\s+'
+    extraScrapeConfigs: |
+      - job_name: kubernetes-pods-loki-canary-filter
+        kubernetes_sd_configs:
+          - role: pod
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_name]
+            regex: loki-canary.*
+            action: drop
     extraArgs:
       - -config.expand-env=true
     tolerations:
@@ -169,4 +186,5 @@ spec:
         operator: Exists
     serviceMonitor:
       enabled: true
+
 
