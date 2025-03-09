@@ -173,7 +173,8 @@ spec:
           - match:
               selector: '{pod=~"loki-canary.*"}'
               stages:
-                - drop: {}
+                - drop:
+                    expression: '.*'
     extraScrapeConfigs: |
       - job_name: kubernetes-pods-loki-canary-filter
         kubernetes_sd_configs:
