@@ -159,23 +159,20 @@ spec:
       snippets:
         pipelineStages:
           - cri: {}
+          - drop:
+              expression: '^p{20,}$'
           - match:
-              selector: '{container="nginx"}'
+              selector: '{filename=~".*nginx.*"}'
               stages:
                 - regex:
-                    expression: '^(?P<remote_addr>[^ ]*) - (?P<remote_user>[^ ]*) \[(?P<time>[^\]]*)\] "(?P<method>[A-Z]+) (?P<uri>[^ ]*) HTTP/[^"]+" (?P<status>\d{3}) (?P<body_bytes_sent>\d+).*'
+                    expression: '^\[.*\] (?P<status>\d{3}) "(?P<method>[A-Z]+) (?P<uri>[^ ]+) HTTP/[^"]+" \d+ "[^"]*" "(?P<user_agent>[^"]+)"'
                 - labels:
-                    method:
-                    uri:
-                    status:
+                    method: ""
+                    uri: ""
+                    status: ""
                 - drop:
                     source: status
                     expression: '204'
-          - match:
-              selector: '{filename=~".*loki-canary.*"}'
-              stages:
-                - drop:
-                    expression: '.*'
     extraArgs:
       - -config.expand-env=true
     tolerations:
