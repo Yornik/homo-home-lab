@@ -159,7 +159,7 @@ spec:
       snippets:
         pipelineStages:
           - drop:
-              expression: '.*^p{20,}$.*'
+              expression: '.*ppppppppppppppppppp.*'
           - drop:
               expression: '^\s*$'
           - cri: {}
