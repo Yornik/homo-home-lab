@@ -135,6 +135,10 @@ spec:
         enabled: false
       service:
         type: LoadBalancer
+    test:
+      enabled: false
+    lokiCanary:
+      enabled: false
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -158,12 +162,7 @@ spec:
         - url: "http://loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push"
       snippets:
         pipelineStages:
-          - drop:
-              expression: '.*ppppppppppppppppppp.*'
-          - drop:
-              expression: '^\s*$'
           - cri: {}
-  
   
           - drop:
               expression: '.*(HEAD|GET) / HTTP/1.1'
