@@ -160,7 +160,7 @@ spec:
         pipelineStages:
           - cri: {}
           - match:
-              selector: '{job=~".*nginx.*"}'
+              selector: '{container="nginx"}'
               stages:
                 - drop:
                     expression: '"/(healthz|favicon.ico)"'
@@ -170,6 +170,10 @@ spec:
                     expression: '"GET / HTTP/1.1"'
                 - drop:
                     expression: '^\[.*\]\s+204\s+'
+          - match:
+              selector: '{pod=~"loki-canary.*"}'
+              stages:
+                - drop: {}
     extraScrapeConfigs: |
       - job_name: kubernetes-pods-loki-canary-filter
         kubernetes_sd_configs:
