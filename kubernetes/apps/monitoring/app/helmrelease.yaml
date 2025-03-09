@@ -158,7 +158,7 @@ spec:
         - url: "http://loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push"
       snippets:
         extraScrapeConfigs: |
-          - job_name: kubernetes-pods-app
+          - job_name: kubernetes-pods
             kubernetes_sd_configs:
               - role: pod
             relabel_configs:
