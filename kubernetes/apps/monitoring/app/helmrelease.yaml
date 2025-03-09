@@ -156,24 +156,28 @@ spec:
     config:
       clients:
         - url: "http://loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push"
-      snippets:
-        pipelineStages:
-          - cri: {}
-          - match:
-              selector: '{}'
-              stages:
-                - contains:
-                    value: 'pppppppppppppppppp'
-                - drop:
-                    expression: '.*'
-          - match:
-              selector: '{}'
-              stages:
-                - contains:
-                    value: ']  204 '
-                - drop:
-                    expression: '.*'
-                
+    snippets:
+      pipelineStages:
+        - cri: {}
+
+        # Drop spammy 'ppppppppppp' logs
+        - drop:
+            expression: '^p{20,}$'
+
+        # Drop health checks, favicon, HEAD/GET /
+        - drop:
+            expression: '.*(HEAD|GET) / HTTP/1.1'
+        - drop:
+            expression: '.*(healthz|favicon.ico).*'
+
+        # Drop nginx 204 lines (use regex or contains if they’re clean)
+        - drop:
+            expression: '.* 204 .*'
+
+        # Drop "-" "-" empty user-agent/request logs
+        - drop:
+            expression: '".*"\s+"-"\s+"-".*'
+
     extraArgs:
       - -config.expand-env=true
     tolerations:
