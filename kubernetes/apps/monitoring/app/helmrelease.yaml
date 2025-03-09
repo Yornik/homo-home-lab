@@ -157,11 +157,26 @@ spec:
       clients:
         - url: "http://loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push"
       snippets:
+        extraScrapeConfig:
+          - job_name: kubernetes-pods-app
+            kubernetes_sd_configs:
+              - role: pod
+            relabel_configs:
+              - source_labels: [__meta_kubernetes_pod_container_name]
+                target_label: container
+              - source_labels: [__meta_kubernetes_pod_name]
+                target_label: pod
         pipelineStages:
           - cri: {}
           - match:
               selector: '{container="nginx"}'
               stages:
+                - regex:
+                    expression: '^(?P<remote_addr>[^ ]*) - (?P<remote_user>[^ ]*) \[(?P<time>[^\]]*)\] "(?P<method>[A-Z]+) (?P<uri>[^ ]*) HTTP/[^"]+" (?P<status>\d{3}) (?P<body_bytes_sent>\d+).*'
+                - labels:
+                    method:
+                    uri:
+                    status:                
                 - drop:
                     expression: '"/(healthz|favicon.ico)"'
                 - drop:
@@ -175,14 +190,6 @@ spec:
               stages:
                 - drop:
                     expression: '.*'
-    extraScrapeConfigs: |
-      - job_name: kubernetes-pods-loki-canary-filter
-        kubernetes_sd_configs:
-          - role: pod
-        relabel_configs:
-          - source_labels: [__meta_kubernetes_pod_name]
-            regex: loki-canary.*
-            action: drop
     extraArgs:
       - -config.expand-env=true
     tolerations:
