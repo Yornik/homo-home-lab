@@ -159,26 +159,21 @@ spec:
       snippets:
         pipelineStages:
           - cri: {}
-          - drop:
-              expression: '^p{20,}$'
           - match:
-              selector: '{filename=~".*nginx.*"}'
+              selector: '{}'
               stages:
-                - regex:
-                    expression: '^\[.*\] (?P<status>\d{3}) "(?P<method>[A-Z]+) (?P<uri>[^ ]+) HTTP/[^"]+" \d+ "[^"]*" "(?P<user_agent>[^"]+)"'
-                - labels:
-                    method: ""
-                    uri: ""
-                    status: ""
+                - contains:
+                    value: 'pppppppppppppppppp'
                 - drop:
-                    source: status
-                    expression: '204'
+                    expression: '.*'
+          - match:
+              selector: '{}'
+              stages:
+                - contains:
+                    value: ']  204 '
                 - drop:
-                    expression: '"/(healthz|favicon.ico)"'
-                - drop:
-                    expression: '"HEAD / HTTP/1.1"'
-                - drop:
-                    expression: '"GET / HTTP/1.1"'
+                    expression: '.*'
+                
     extraArgs:
       - -config.expand-env=true
     tolerations:
