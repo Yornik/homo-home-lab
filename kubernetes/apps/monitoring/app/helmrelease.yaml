@@ -153,8 +153,6 @@ spec:
         namespace: flux-system
   values:
     auth_enabled: false
-    ingester_client:
-      remote_timeout: 30s
     config:
       clients:
         - url: "http://loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push"
