@@ -170,19 +170,14 @@ spec:
                 - regex:
                     expression: '^(?P<remote_addr>[^ ]*) - (?P<remote_user>[^ ]*) \[(?P<time>[^\]]*)\] "(?P<method>[A-Z]+) (?P<uri>[^ ]*) HTTP/[^"]+" (?P<status>\d{3}) (?P<body_bytes_sent>\d+).*'
                 - labels:
-                    method: ""
-                    uri: ""
-                    status: ""
+                    method:
+                    uri:
+                    status:
                 - drop:
-                    expression: '"/(healthz|favicon.ico)"'
-                - drop:
-                    expression: '"HEAD / HTTP/1.1"'
-                - drop:
-                    expression: '"GET / HTTP/1.1"'
-                - drop:
-                    expression: '^\[.*\]\s+204\s+'
+                    source: status
+                    expression: '204'
           - match:
-              selector: '{pod=~"loki-canary.*"}'
+              selector: '{filename=~".*loki-canary.*"}'
               stages:
                 - drop:
                     expression: '.*'
