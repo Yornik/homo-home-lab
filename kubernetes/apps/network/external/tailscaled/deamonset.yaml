@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
@@ -22,9 +23,7 @@ spec:
           image: tailscale/tailscale:stable
           securityContext:
             capabilities:
-              add:
-                - NET_ADMIN
-                - NET_RAW
+              add: [ NET_ADMIN, NET_RAW ]
             privileged: true
           env:
             - name: TS_AUTHKEY
@@ -33,7 +32,7 @@ spec:
                   name: tailscale-auth
                   key: TS_AUTHKEY
             - name: TS_EXTRA_ARGS
-              value: "--login-server=yornik.jump.nl --advertise-routes={{ join "," .Values.advertiseRoutes }} --exit-node={{ .Values.exitNode }} --exit-node-allow-lan-access=true --login"
+              value: "--login-server=https://jump.yornik.nl --advertise-routes=10.69.0.0/16,10.96.0.0/16 --exit-node=100.64.0.9 --exit-node-allow-lan-access=true"
           volumeMounts:
             - name: tailscale-state
               mountPath: /var/lib/tailscale

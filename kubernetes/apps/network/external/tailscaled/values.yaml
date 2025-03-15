@@ -1,7 +1,0 @@
----
-exitNode: "100.64.0.9"
-advertiseRoutes:
-  - "10.69.0.0/16"
-  - "10.96.0.0/16"
-
-resources: {}
