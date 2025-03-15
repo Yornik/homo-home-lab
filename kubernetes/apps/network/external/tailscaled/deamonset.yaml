@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: tailscaled
+  namespace: kube-system
+  labels:
+    app: tailscaled
+spec:
+  selector:
+    matchLabels:
+      app: tailscaled
+  template:
+    metadata:
+      labels:
+        app: tailscaled
+    spec:
+      hostNetwork: true
+      hostPID: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+        - name: tailscaled
+          image: tailscale/tailscale:stable
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+                - NET_RAW
+            privileged: true
+          env:
+            - name: TS_AUTHKEY
+              valueFrom:
+                secretKeyRef:
+                  name: tailscale-auth
+                  key: TS_AUTHKEY
+            - name: TS_EXTRA_ARGS
+              value: "--login-server=yornik.jump.nl --advertise-routes={{ join "," .Values.advertiseRoutes }} --exit-node={{ .Values.exitNode }} --exit-node-allow-lan-access=true --login"
+          volumeMounts:
+            - name: tailscale-state
+              mountPath: /var/lib/tailscale
+            - name: dev
+              mountPath: /dev
+      restartPolicy: Always
+      volumes:
+        - name: tailscale-state
+          hostPath:
+            path: /var/lib/tailscale
+            type: DirectoryOrCreate
+        - name: dev
+          hostPath:
+            path: /dev
+
