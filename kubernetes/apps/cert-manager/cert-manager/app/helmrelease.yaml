@@ -8,7 +8,7 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: cert-manager-webhook-pdns/cert-manager-webhook-pdns
+      chart: cert-manager-webhook-pdns
       version: v2.5.2
       sourceRef:
         kind: HelmRepository
