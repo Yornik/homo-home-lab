@@ -7,3 +7,5 @@ components:
   - ../../flux/components/common
 resources:
   - ./cert-manager/ks.yaml
+  - ./pdns-webhook
+  - ./helmrepo/pdns-webhook.yaml
