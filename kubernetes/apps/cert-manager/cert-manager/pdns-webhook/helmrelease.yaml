@@ -13,6 +13,6 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: cert-manager-webhook-pdns
-        namespace: flux-system
+        namespace: cert-manager
   values:
     groupName: acme.yornik.eu
