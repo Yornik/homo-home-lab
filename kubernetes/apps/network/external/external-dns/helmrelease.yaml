@@ -30,6 +30,8 @@ spec:
     pdns:
       apiUrl: https://dnsapi.yornik.nl
     extraArgs:
+      - --provider=pdns
+      - --pdns-server=https://dnsapi.yornik.nl
       - --pdns-api-key=$(PDNS_API_KEY)
       - --txt-owner-id=default
       - --domain-filter=yornik.eu
