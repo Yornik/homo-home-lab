@@ -22,7 +22,7 @@ spec:
               ttl: 60
               serverID: localhost
               allowed-zones:
-                - yornik.eu
+                - yornik.eu.
         selector:
           dnsZones:
             - "${SECRET_DOMAIN}"
