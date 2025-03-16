@@ -9,10 +9,10 @@ spec:
   chart:
     spec:
       chart: cert-manager-webhook-pdns
-      version: 2.5.2
+      version: 3.2.3
       sourceRef:
         kind: HelmRepository
         name: cert-manager-webhook-pdns
-        namespace: flux-system
+        namespace: cert-manager
   values:
     groupName: acme.yornik.eu
