@@ -8,11 +8,11 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: cert-manager-webhook-pdns
-      version: v2.5.2
+      chart: cert-manager
+      version: v1.17.1
       sourceRef:
         kind: HelmRepository
-        name: cert-manager-webhook-pdns
+        name: jetstack
         namespace: flux-system
   install:
     remediation:
