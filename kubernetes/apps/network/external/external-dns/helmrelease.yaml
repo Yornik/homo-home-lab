@@ -3,7 +3,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app external-dns
+  name: external-dns
+  namespace: external-dns
 spec:
   interval: 30m
   chart:
@@ -25,28 +26,30 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    fullnameOverride: *app
-    provider: cloudflare
-    env:
-      - name: CF_API_TOKEN
-        valueFrom:
-          secretKeyRef:
-            name: external-dns-secret
-            key: api-token
+    fullnameOverride: external-dns
+    provider: pdns
+    pdns:
+      apiUrl: https://dnsapi.yornik.nl
+      apiKeySecret:
+        name: external-dns-secret
+        key: api-key
+      tlsEnabled: true
     extraArgs:
-      - --cloudflare-dns-records-per-page=1000
-      - --cloudflare-proxied
       - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
       - --crd-source-kind=DNSEndpoint
       - --events
       - --ignore-ingress-tls-spec
       - --ingress-class=external
     policy: sync
-    sources: ["crd", "ingress"]
+    sources:
+      - crd
+      - ingress
     txtPrefix: k8s.
     txtOwnerId: default
-    domainFilters: ["${SECRET_DOMAIN}"]
+    domainFilters:
+      - yornik.eu
     serviceMonitor:
       enabled: true
     podAnnotations:
       secret.reloader.stakater.com/reload: external-dns-secret
+

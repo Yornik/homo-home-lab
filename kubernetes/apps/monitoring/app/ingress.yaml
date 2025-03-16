@@ -8,7 +8,7 @@ metadata:
 spec:
   ingressClassName: external
   rules:
-    - host: "grafana.bro-cloud.org"
+    - host: "grafana.yornik.eu"
       http:
         paths:
           - path: /
@@ -33,7 +33,7 @@ metadata:
 spec:
   ingressClassName: external
   rules:
-    - host: "promethus.bro-cloud.org"
+    - host: "promethus.yornik.eu"
       http:
         paths:
           - path: /

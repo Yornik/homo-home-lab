@@ -11,13 +11,13 @@ metadata:
 spec:
   ingressClassName: external
   rules:
-    - host: "capacitor.bro-cloud.org"
+    - host: "capacitor.yornik.eu"
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: capacitor    # This should match the service name that the ingress should route to
+                name: capacitor
                 port:
                   name: http

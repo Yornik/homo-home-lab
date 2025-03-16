@@ -24,7 +24,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app cloudflared
+  name: &app tailscaled
   namespace: &namespace network
 spec:
   commonMetadata:
@@ -34,7 +34,7 @@ spec:
     - name: external-external-dns
       namespace: network
   interval: 30m
-  path: ./kubernetes/apps/network/external/cloudflared
+  path: ./kubernetes/apps/network/external/tailscaled
   prune: true
   sourceRef:
     kind: GitRepository
