@@ -1,0 +1,22 @@
+# cert-manager/clusterrole-cert-manager-webhook-pdns.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cert-manager-webhook-pdns
+rules:
+  - apiGroups: ["acme.yornik.eu"]
+    resources: ["pdns"]
+    verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cert-manager-webhook-pdns
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cert-manager-webhook-pdns
+subjects:
+  - kind: ServiceAccount
+    name: cert-manager
+    namespace: cert-manager
