@@ -5,3 +5,4 @@ metadata:
 resources:
   - helmrepo.yaml
   - helmrelease.yaml
+  - rbac.yaml
