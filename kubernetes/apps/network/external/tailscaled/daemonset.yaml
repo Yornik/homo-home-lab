@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: tailscaled
-  namespace: kube-system
+  namespace: network
   labels:
     app: tailscaled
 spec:
@@ -15,6 +15,7 @@ spec:
       labels:
         app: tailscaled
     spec:
+      serviceAccountName: tailscaled
       hostNetwork: true
       hostPID: true
       dnsPolicy: ClusterFirstWithHostNet
