@@ -1,0 +1,62 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tailscale-operator
+  namespace: tailscale
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tailscale-operator
+  template:
+    metadata:
+      labels:
+        app: tailscale-operator
+    spec:
+      serviceAccountName: tailscale-operator
+      containers:
+        - name: operator
+          image: ghcr.io/tailscale/k8s-operator:main
+          env:
+            - name: TS_KUBE_SECRET
+              value: "tailscale-auth"
+            - name: TS_USERSPACE
+              value: "false"
+            - name: TS_ACCEPT_DNS
+              value: "true"
+          volumeMounts:
+            - mountPath: /var/lib/tailscale
+              name: state
+      volumes:
+        - name: state
+          emptyDir: {}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tailscale-operator
+  namespace: tailscale
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: tailscale-operator
+rules:
+  - apiGroups: [""]
+    resources: ["services", "endpoints",  "secrets"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: tailscale-operator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: tailscale-operator
+subjects:
+  - kind: ServiceAccount
+    name: tailscale-operator
+    namespace: tailscale
+
