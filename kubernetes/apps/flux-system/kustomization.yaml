@@ -8,4 +8,4 @@ components:
 resources:
   - ./flux-operator/ks.yaml
   - ./capacitor/ks.yaml
-  - ./capacitor/ingress.yaml
+  - ./capacitor/connector.yaml
