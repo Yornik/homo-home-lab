@@ -17,7 +17,7 @@ spec:
       serviceAccountName: tailscale-operator
       containers:
         - name: operator
-          image: ghcr.io/tailscale/k8s-operator:main
+          image: ghcr.io/tailscale/k8s-operator:stable
           env:
             - name: TS_KUBE_SECRET
               value: "tailscale-auth"
