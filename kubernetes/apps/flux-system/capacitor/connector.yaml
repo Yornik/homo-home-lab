@@ -2,6 +2,8 @@
 apiVersion: tailscale.com/v1alpha1
 kind: Connector
 metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/target: jump.yornik.nl
   name: capacitor
   namespace: tailscale
 spec:
