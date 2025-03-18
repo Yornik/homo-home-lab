@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: capacitor
+  namespace: flux-system
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: "capacitor.yornik.eu"
+    external-dns.alpha.kubernetes.io/target: "jump.yornik.nl"
+spec:
+  selector:
+    app: capacitor
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80

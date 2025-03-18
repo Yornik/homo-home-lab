@@ -7,5 +7,5 @@ components:
   - ../../flux/components/common
 resources:
   - ./flux-operator/ks.yaml
-  - ./capacitor/ks.yaml
-  - ./capacitor/connector.yaml
+  - ./capacitor/capacitor-source.yaml      # the OCIRepository definition
+  - ./capacitor/ks.yaml                    # wrapper Kustomization with Tailscale overlay
