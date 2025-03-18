@@ -15,5 +15,3 @@ spec:
   sourceRef:
     kind: OCIRepository
     name: capacitor
-  dependsOn:
-    - name: capacitor
