@@ -2,18 +2,15 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: capacitor
+  name: capacitor-base
   namespace: flux-system
 spec:
   targetNamespace: flux-system
   interval: 1h
   retryInterval: 2m
   timeout: 5m
-  wait: true
   prune: true
-  path: ./kubernetes/apps/flux-system/capacitor/overlays/tailscale
+  path: .
   sourceRef:
-    kind: GitRepository
-    name: homo-home-lab
-  dependsOn:
-    - name: capacitor-base
+    kind: OCIRepository
+    name: capacitor
