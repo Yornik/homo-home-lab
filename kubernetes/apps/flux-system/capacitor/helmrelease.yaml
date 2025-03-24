@@ -22,7 +22,7 @@ spec:
       - name: http
         port: 9000
         containerPort: 9000
-    containers:
+    extraContainers:
       - name: tailscale-capacitor
         image: tailscale/tailscale:stable
         securityContext:
