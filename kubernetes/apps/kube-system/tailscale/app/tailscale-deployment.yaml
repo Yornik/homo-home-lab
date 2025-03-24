@@ -23,7 +23,7 @@ spec:
           image: tailscale/tailscale:stable
           securityContext:
             capabilities:
-              add: ["NET_ADMIN", "SYS_MODULE"]
+              add: ["NET_ADMIN"]
             runAsUser: 1000
             runAsGroup: 1000
             allowPrivilegeEscalation: true
