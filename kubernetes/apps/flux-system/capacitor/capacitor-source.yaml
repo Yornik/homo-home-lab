@@ -1,5 +1,5 @@
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: capacitor
@@ -9,3 +9,14 @@ spec:
   url: oci://ghcr.io/gimlet-io/capacitor-manifests
   ref:
     semver: ">=0.1.0"
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: homo-home-lab
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: https://github.com/Yornik/homo-home-lab
+  ref:
+    branch: main
