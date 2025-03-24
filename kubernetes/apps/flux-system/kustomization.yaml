@@ -8,4 +8,3 @@ components:
 resources:
   - ./flux-operator/ks.yaml
   - ./capacitor/capacitor-source.yaml      # the helm repo defination
-  - ./capacitor/secret-authkey.sops.yaml
