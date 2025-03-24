@@ -38,8 +38,8 @@ spec:
                   fieldPath: metadata.uid
             - name: TS_HOSTNAME
               value: "ts-subnet-router"
-            - name: TS_LOGIN_SERVER
-              value: "https://jump.yornik.nl"
+            - name: TS_EXTRA_ARGS
+              value: "--login-server=https://jump.yornik.nl"
             - name: TS_AUTHKEY
               valueFrom:
                 secretKeyRef:
