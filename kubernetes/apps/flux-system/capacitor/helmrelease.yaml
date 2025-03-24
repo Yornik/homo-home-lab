@@ -15,9 +15,7 @@ spec:
         namespace: flux-system
       version: ">=0.69.0"
   values:
-    serviceAccount:
-      create: true
-      name: capacitor
+    serviceAccountName: capacitor
     image:
       repository: ghcr.io/gimlet-io/capacitor
       tag: v0.4.8
