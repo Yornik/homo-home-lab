@@ -49,3 +49,15 @@ spec:
         hostPath:
           path: /dev/net/tun
 
+extraVolumes:
+  - name: ts-state
+    emptyDir: true
+  - name: ts-tun
+    hostPath:
+      path: /dev/net/tun
+
+extraVolumeMounts:
+  - name: ts-state
+    mountPath: /var/lib/tailscale
+  - name: ts-tun
+    mountPath: /dev/net/tun
