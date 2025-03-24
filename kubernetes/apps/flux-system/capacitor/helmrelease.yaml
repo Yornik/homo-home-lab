@@ -21,38 +21,38 @@ spec:
     ports:
       - name: http
         port: 9000
-  containers:
-    - name: tailscale-capacitor
-      image: tailscale/tailscale:stable
-      securityContext:
-        capabilities:
-          add:
-            - NET_ADMIN
-            - SYS_MODULE
-      env:
-        - name: TS_AUTHKEY
-          valueFrom:
-            secretKeyRef:
-              name: tailscale-auth
-              key: TS_AUTHKEY
-        - name: TS_STATE_DIR
-          value: /var/lib/tailscale
-      volumeMounts:
-        - name: ts-state
-          mountPath: /var/lib/tailscale
-        - name: ts-tun
-          mountPath: /dev/net/tun
-  
-  extraVolumes:
-    - name: ts-state
-      emptyDir: true
-    - name: ts-tun
-      hostPath:
-        path: /dev/net/tun
-  
-  extraVolumeMounts:
-    - name: ts-state
-      mountPath: /var/lib/tailscale
-    - name: ts-tun
-      mountPath: /dev/net/tun
-  
+    containers:
+      - name: tailscale-capacitor
+        image: tailscale/tailscale:stable
+        securityContext:
+          capabilities:
+            add:
+              - NET_ADMIN
+              - SYS_MODULE
+        env:
+          - name: TS_AUTHKEY
+            valueFrom:
+              secretKeyRef:
+                name: tailscale-auth
+                key: TS_AUTHKEY
+          - name: TS_STATE_DIR
+            value: /var/lib/tailscale
+        volumeMounts:
+          - name: ts-state
+            mountPath: /var/lib/tailscale
+          - name: ts-tun
+            mountPath: /dev/net/tun
+    
+    extraVolumes:
+      - name: ts-state
+        emptyDir: true
+      - name: ts-tun
+        hostPath:
+          path: /dev/net/tun
+    
+    extraVolumeMounts:
+      - name: ts-state
+        mountPath: /var/lib/tailscale
+      - name: ts-tun
+        mountPath: /dev/net/tun
+    
