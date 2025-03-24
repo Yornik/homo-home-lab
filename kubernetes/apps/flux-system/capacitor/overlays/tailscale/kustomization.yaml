@@ -4,6 +4,6 @@ kind: Kustomization
 resources:
   - service.yaml
   - secret-authkey.sops.yaml
-patch:
+patches:
   - path: patch-deployment.yaml
 
