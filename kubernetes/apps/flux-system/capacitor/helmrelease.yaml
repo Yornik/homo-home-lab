@@ -1,5 +1,4 @@
----
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: capacitor
@@ -13,24 +12,45 @@ spec:
         kind: HelmRepository
         name: onechart
         namespace: flux-system
-      version: ">=0.69.0"
+      version: ">=0.73.0"
+  targetNamespace: flux-system
   values:
     serviceAccountName: capacitor
+
     image:
       repository: ghcr.io/gimlet-io/capacitor
       tag: v0.4.8
+
     ports:
       - name: http
         port: 9000
         containerPort: 9000
+
+    # Pod-level security
+    securityContext:
+      runAsNonRoot: true
+      seccompProfile:
+        type: RuntimeDefault
+
+    # Main container security
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - ALL
+
+    # Sidecar
     extraContainers:
       - name: tailscale-capacitor
         image: tailscale/tailscale:stable
         securityContext:
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
           capabilities:
-            add:
-              - NET_ADMIN
-              - SYS_MODULE
+            add: ["NET_ADMIN", "SYS_MODULE"]
+            drop: ["ALL"]
+          seccompProfile:
+            type: RuntimeDefault
         env:
           - name: TS_AUTHKEY
             valueFrom:
@@ -44,17 +64,17 @@ spec:
             mountPath: /var/lib/tailscale
           - name: ts-tun
             mountPath: /dev/net/tun
-    
+
     extraVolumes:
       - name: ts-state
-        emptyDir: true
+        emptyDir: {}
       - name: ts-tun
         hostPath:
           path: /dev/net/tun
-    
+
     extraVolumeMounts:
       - name: ts-state
         mountPath: /var/lib/tailscale
       - name: ts-tun
         mountPath: /dev/net/tun
-    
+
