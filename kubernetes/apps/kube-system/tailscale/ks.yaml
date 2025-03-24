@@ -5,7 +5,7 @@ metadata:
   name: tailscale
   namespace: flux-system
 spec:
-  interval: 30m
+  interval: "30m"
   path: ./kubernetes/apps/kube-system/tailscale/app
   prune: false
   sourceRef:
