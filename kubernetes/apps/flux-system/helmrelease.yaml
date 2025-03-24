@@ -1,0 +1,51 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: capacitor
+  namespace: flux-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: onechart
+      sourceRef:
+        kind: HelmRepository
+        name: onechart
+        namespace: flux-system
+      version: ">=0.69.0"
+  values:
+    image:
+      repository: ghcr.io/gimlet-io/capacitor
+      tag: v0.4.8
+    ports:
+      - name: http
+        port: 9000
+    containers:
+      - name: tailscale
+        image: tailscale/tailscale:stable
+        securityContext:
+          capabilities:
+            add:
+              - NET_ADMIN
+              - SYS_MODULE
+        env:
+          - name: TS_AUTHKEY
+            valueFrom:
+              secretKeyRef:
+                name: tailscale-auth
+                key: TS_AUTHKEY
+          - name: TS_STATE_DIR
+            value: /var/lib/tailscale
+        volumeMounts:
+          - mountPath: /var/lib/tailscale
+            name: ts-state
+          - mountPath: /dev/net/tun
+            name: ts-tun
+    volumes:
+      - name: ts-state
+        emptyDir: {}
+      - name: ts-tun
+        hostPath:
+          path: /dev/net/tun
+
