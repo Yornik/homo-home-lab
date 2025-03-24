@@ -17,6 +17,8 @@ spec:
   values:
     serviceAccountName: capacitor
 
+    podSpecOverride:
+      serviceAccountName: capacitor
     image:
       repository: ghcr.io/gimlet-io/capacitor
       tag: v0.4.8
