@@ -28,6 +28,14 @@ spec:
             runAsGroup: 1000
             allowPrivilegeEscalation: true
           env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_UID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.uid
             - name: TS_HOSTNAME
               value: "ts-subnet-router"
             - name: TS_LOGIN_SERVER
