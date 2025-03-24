@@ -8,4 +8,5 @@ components:
 resources:
   - ./flux-operator/ks.yaml
   - ./capacitor/capacitor-source.yaml      # the OCIRepository definition
+  - ./capacitor/capacitor-base.yaml 
   - ./capacitor/ks.yaml                    # wrapper Kustomization with Tailscale overlay
