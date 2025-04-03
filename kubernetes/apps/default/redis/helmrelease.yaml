@@ -13,7 +13,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: bitnami
-        namespace: flux-system
+        namespace: default
   values:
     auth:
       enabled: false  # Caddy doesn’t need auth
