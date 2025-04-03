@@ -5,5 +5,4 @@ kind: Kustomization
 namespace: default
 components:
   - ../../flux/components/common
-resources:
   - ./redis
