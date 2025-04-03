@@ -1,0 +1,25 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: redis
+  namespace: default
+spec:
+  releaseName: redis
+  interval: 10m
+  chart:
+    spec:
+      chart: redis
+      version: 18.2.x  # You can pin latest
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami
+        namespace: flux-system
+  values:
+    auth:
+      enabled: false  # Caddy doesn’t need auth
+    architecture: standalone
+    master:
+      persistence:
+        enabled: true
+        storageClass: truenas-iscsi  # 🧠 Your iSCSI storage class
+        size: 1Gi
