@@ -7,10 +7,8 @@ spec:
   releaseName: redis
   interval: 10m
   chartRef:
-    chart: redis
-    version: "20.11.4"
     kind: OCIRepository
-    name: bitnami
+    name: bitnami-redis
     namespace: flux-system
   values:
     auth:
