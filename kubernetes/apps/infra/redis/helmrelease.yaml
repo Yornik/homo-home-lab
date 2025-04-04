@@ -6,14 +6,12 @@ metadata:
 spec:
   releaseName: redis
   interval: 10m
-  chart:
-    spec:
-      chart: redis
-      version: "20.11.4"
-      sourceRef:
-        kind: HelmRepository
-        name: bitnami
-        namespace: flux-system
+  chartRef:
+    chart: redis
+    version: "20.11.4"
+    kind: OCIRepository
+    name: bitnami
+    namespace: flux-system
   values:
     auth:
       enabled: false
