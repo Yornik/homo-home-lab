@@ -6,3 +6,5 @@ metadata:
 spec:
   interval: 10m
   url: oci://registry-1.docker.io/bitnamicharts/redis
+  ref:
+    semver: "20.11.4"
