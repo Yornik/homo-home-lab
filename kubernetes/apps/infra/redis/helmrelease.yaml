@@ -10,7 +10,6 @@ spec:
     kind: OCIRepository
     name: bitnami-redis
     namespace: flux-system
-    version: "20.11.4"
   values:
     auth:
       enabled: false
