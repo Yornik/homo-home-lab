@@ -52,8 +52,7 @@ spec:
       hostPID: true
       driver:
         image:
-          registry: ghcr.io/yornik
-          repository: democratic-csi
+          registry: ghcr.io/yornik/democratic-csi
           tag: test-fix
         extraEnv:
           - name: ISCSIADM_HOST_STRATEGY
@@ -65,6 +64,5 @@ spec:
     controller:
       driver:
         image:
-          registry: ghcr.io/yornik
-          repository: democratic-csi
+          registry: ghcr.io/yornik/democratic-csi
           tag: test-fix
