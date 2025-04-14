@@ -60,8 +60,12 @@ spec:
 
     controller:
       driver:
-        image: ghcr.io/yornik/democratic-csi:test-fix
+        image:
+          repository: ghcr.io/yornik/democratic-csi
+          tag: test-fix
     
     node:
       driver:
-        image: ghcr.io/yornik/democratic-csi:test-fix
+        image:
+          repository: ghcr.io/yornik/democratic-csi
+          tag: test-fix
