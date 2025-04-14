@@ -52,6 +52,7 @@ spec:
     node:
       hostPID: true
       driver:
+        image: ghcr.io/yornik/democratic-csi:test-fix
         extraEnv:
           - name: ISCSIADM_HOST_STRATEGY
             value: nsenter
@@ -59,3 +60,6 @@ spec:
             value: /usr/local/sbin/iscsiadm
         iscsiDirHostPath: /usr/local/etc/iscsi
         iscsiDirHostPathType: ""
+    controller:
+      driver:
+        image: ghcr.io/yornik/democratic-csi:test-fix

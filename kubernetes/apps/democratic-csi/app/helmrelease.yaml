@@ -57,3 +57,11 @@ spec:
           shareHost: 192.168.1.42
           shareMaprootUser: root
           shareMaprootGroup: root
+
+    controller:
+      driver:
+        image: ghcr.io/yornik/democratic-csi:test-fix
+    
+    node:
+      driver:
+        image: ghcr.io/yornik/democratic-csi:test-fix
