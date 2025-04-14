@@ -31,7 +31,6 @@ spec:
         parameters:
           fsType: xfs
     driver:
-      image: ghcr.io/yornik/democratic-csi:test-fix
       config:
         driver: freenas-api-iscsi
         instance_id: "trueinas-iscsi-instance"
@@ -52,6 +51,9 @@ spec:
     node:
       hostPID: true
       driver:
+        image:
+          repository: ghcr.io/yornik/democratic-csi
+          tag: test-fix
         extraEnv:
           - name: ISCSIADM_HOST_STRATEGY
             value: nsenter
@@ -59,3 +61,8 @@ spec:
             value: /usr/local/sbin/iscsiadm
         iscsiDirHostPath: /usr/local/etc/iscsi
         iscsiDirHostPathType: ""
+    controller:
+      driver:
+        image:
+          repository: ghcr.io/yornik/democratic-csi
+          tag: test-fix

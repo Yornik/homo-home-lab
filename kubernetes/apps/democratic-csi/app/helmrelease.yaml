@@ -36,7 +36,6 @@ spec:
             - nfsvers=4
     
     driver:
-      image: ghcr.io/yornik/democratic-csi:test-fix
       config:
         driver: freenas-api-nfs
         instance_id: "truenas-nfs-instance"
@@ -57,3 +56,15 @@ spec:
           shareHost: 192.168.1.42
           shareMaprootUser: root
           shareMaprootGroup: root
+
+    controller:
+      driver:
+        image:
+          repository: ghcr.io/yornik/democratic-csi
+          tag: test-fix
+    
+    node:
+      driver:
+        image:
+          repository: ghcr.io/yornik/democratic-csi
+          tag: test-fix
