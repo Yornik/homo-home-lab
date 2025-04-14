@@ -36,7 +36,6 @@ spec:
             - nfsvers=4
     
     driver:
-      image: ghcr.io/yornik/democratic-csi:test-fix
       config:
         driver: freenas-api-nfs
         instance_id: "truenas-nfs-instance"

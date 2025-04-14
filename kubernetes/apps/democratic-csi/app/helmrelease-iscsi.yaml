@@ -31,7 +31,6 @@ spec:
         parameters:
           fsType: xfs
     driver:
-      image: ghcr.io/yornik/democratic-csi:test-fix
       config:
         driver: freenas-api-iscsi
         instance_id: "trueinas-iscsi-instance"
