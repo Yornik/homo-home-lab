@@ -22,7 +22,18 @@ spec:
   values:
     csiDriver:
       name: "org.democratic-csi.nfs"
-    
+    controller:
+      driver:
+        image:
+          registry: ghcr.io/yornik/democratic-csi
+          tag: test-fix
+  
+    node:
+      driver:
+        image:
+          registry: ghcr.io/yornik/democratic-csi
+          tag: test-fix
+
     storageClasses:
       - name: truenas-nfs
         defaultClass: true
@@ -57,14 +68,3 @@ spec:
           shareMaprootUser: root
           shareMaprootGroup: root
 
-    controller:
-      driver:
-        image:
-          registry: ghcr.io/yornik/democratic-csi
-          tag: test-fix
-    
-    node:
-      driver:
-        image:
-          registry: ghcr.io/yornik/democratic-csi
-          tag: test-fix
