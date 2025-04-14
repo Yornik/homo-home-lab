@@ -20,9 +20,6 @@ spec:
       valuesKey: apiKey
       targetPath: driver.config.httpConnection.apiKey
   values:
-    image:
-      repository: ghcr.io/yornik/democratic-csi
-      tag: test-fix
     csiDriver:
       name: "org.democratic-csi.iscsi"
     storageClasses:
@@ -34,6 +31,7 @@ spec:
         parameters:
           fsType: xfs
     driver:
+      image: ghcr.io/yornik/democratic-csi:test-fix
       config:
         driver: freenas-api-iscsi
         instance_id: "trueinas-iscsi-instance"

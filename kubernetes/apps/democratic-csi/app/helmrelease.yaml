@@ -20,9 +20,6 @@ spec:
       valuesKey: apiKey
       targetPath: driver.config.httpConnection.apiKey
   values:
-    image:
-      repository: ghcr.io/yornik/democratic-csi
-      tag: test-fix
     csiDriver:
       name: "org.democratic-csi.nfs"
     
@@ -39,6 +36,7 @@ spec:
             - nfsvers=4
     
     driver:
+      image: ghcr.io/yornik/democratic-csi:test-fix
       config:
         driver: freenas-api-nfs
         instance_id: "truenas-nfs-instance"
