@@ -60,11 +60,11 @@ spec:
     controller:
       driver:
         image:
-          repository: ghcr.io/yornik/democratic-csi
+          registry: ghcr.io/yornik/democratic-csi
           tag: test-fix
     
     node:
       driver:
         image:
-          repository: ghcr.io/yornik/democratic-csi
+          registry: ghcr.io/yornik/democratic-csi
           tag: test-fix
