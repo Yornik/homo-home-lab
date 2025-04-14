@@ -66,3 +66,15 @@ spec:
         image:
           registry: ghcr.io/yornik/democratic-csi
           tag: test-fix
+
+    iscsiController:
+      driver:
+        image:
+          registry: ghcr.io/yornik/democratic-csi
+          tag: test-fix
+    
+    iscsiNode:
+      driver:
+        image:
+          registry: ghcr.io/yornik/democratic-csi
+          tag: test-fix
