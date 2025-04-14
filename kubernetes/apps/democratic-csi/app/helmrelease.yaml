@@ -20,6 +20,9 @@ spec:
       valuesKey: apiKey
       targetPath: driver.config.httpConnection.apiKey
   values:
+    image:
+      repository: ghcr.io/yornik/democratic-csi
+      tag: test-fix
     csiDriver:
       name: "org.democratic-csi.nfs"
     
