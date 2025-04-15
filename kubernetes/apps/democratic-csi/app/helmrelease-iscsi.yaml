@@ -22,6 +22,7 @@ spec:
   values:
     csiDriver:
       name: "org.democratic-csi.iscsi"
+  
     storageClasses:
       - name: truenas-iscsi
         defaultClass: false
@@ -48,12 +49,16 @@ spec:
             - targetGroupPortalGroup: 1
               targetGroupInitiatorGroup: 6
               targetGroupAuthType: None
-    node:
-      hostPID: true
+
+    controller:
       driver:
         image:
-          registry: ghcr.io/yornik/democratic-csi
-          tag: test-fix
+          tag: next
+
+    node:
+      driver:
+        image:
+          tag: next
         extraEnv:
           - name: ISCSIADM_HOST_STRATEGY
             value: nsenter
@@ -61,8 +66,4 @@ spec:
             value: /usr/local/sbin/iscsiadm
         iscsiDirHostPath: /usr/local/etc/iscsi
         iscsiDirHostPathType: ""
-    controller:
-      driver:
-        image:
-          registry: ghcr.io/yornik/democratic-csi
-          tag: test-fix
+      hostPID: true

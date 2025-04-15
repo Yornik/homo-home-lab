@@ -22,7 +22,7 @@ spec:
   values:
     csiDriver:
       name: "org.democratic-csi.nfs"
-    
+  
     storageClasses:
       - name: truenas-nfs
         defaultClass: true
@@ -56,15 +56,11 @@ spec:
           shareHost: 192.168.1.42
           shareMaprootUser: root
           shareMaprootGroup: root
-
-    controller:
-      driver:
-        image:
-          registry: ghcr.io/yornik/democratic-csi
-          tag: test-fix
-    
     node:
       driver:
         image:
-          registry: ghcr.io/yornik/democratic-csi
-          tag: test-fix
+          tag: next
+    controller:
+      driver:
+        image:
+          tag: next
