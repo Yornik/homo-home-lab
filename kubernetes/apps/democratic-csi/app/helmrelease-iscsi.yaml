@@ -32,6 +32,9 @@ spec:
         parameters:
           fsType: xfs
     driver:
+      image:
+        image:
+          tag: next
       config:
         driver: freenas-api-iscsi
         instance_id: "trueinas-iscsi-instance"
@@ -50,6 +53,9 @@ spec:
               targetGroupInitiatorGroup: 6
               targetGroupAuthType: None
     node:
+      driver:
+        image:
+          tag: next
       hostPID: true
       extraEnv:
         - name: ISCSIADM_HOST_STRATEGY
