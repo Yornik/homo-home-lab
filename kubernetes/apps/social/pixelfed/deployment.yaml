@@ -1,0 +1,108 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pixelfed
+  namespace: social
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pixelfed
+  template:
+    metadata:
+      labels:
+        app: pixelfed
+    spec:
+      initContainers:
+        - name: init-pixelfed
+          image: elestio/pixelfed:0.12.5
+          command: ["/bin/sh", "-c"]
+          args:
+            - php artisan migrate --force && php artisan storage:link || true
+          envFrom:
+            - secretRef:
+                name: pixelfed-smtp-secret
+          env:
+            - name: APP_URL
+              value: https://pics.fedishark.eu
+            - name: REDIS_HOST
+              value: redis-master.infra.svc.cluster.local
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_DB
+              value: "1"
+            - name: CACHE_DRIVER
+              value: redis
+            - name: QUEUE_DRIVER
+              value: redis
+            - name: DB_HOST
+              value: pixelfed-postgresql.social.svc.cluster.local
+            - name: DB_DATABASE
+              value: pixelfed
+            - name: DB_USERNAME
+              value: pixelfed
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pixelfed-postgres-auth
+                  key: password
+            - name: APP_ENV
+              value: production
+          volumeMounts:
+            - name: media
+              mountPath: /var/www/storage
+      containers:
+        - name: pixelfed
+          image: elestio/pixelfed:0.12.5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          envFrom:
+            - secretRef:
+                name: pixelfed-smtp-secret
+          env:
+            - name: APP_NAME
+              value: Pixelfed
+            - name: APP_ENV
+              value: production
+            - name: APP_URL
+              value: https://pics.fedishark.eu
+            - name: DB_HOST
+              value: pixelfed-postgresql.social.svc.cluster.local
+            - name: DB_DATABASE
+              value: pixelfed
+            - name: DB_USERNAME
+              value: pixelfed
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pixelfed-postgres-auth
+                  key: password
+            - name: REDIS_HOST
+              value: redis-master.infra.svc.cluster.local
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_DB
+              value: "1"
+            - name: CACHE_DRIVER
+              value: redis
+            - name: QUEUE_DRIVER
+              value: redis
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: media
+              mountPath: /var/www/storage
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: pixelfed-media-pvc
