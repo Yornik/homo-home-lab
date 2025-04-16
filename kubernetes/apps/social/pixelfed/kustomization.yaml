@@ -7,6 +7,6 @@ resources:
   - postgres/secret.sops.yaml
   - smtp-secret.yaml
   - media-pvc.yaml
-  - smtp-secret.yaml
+  - smtp-secret.sops.yaml
   - deployment.yaml
   - service.yaml
