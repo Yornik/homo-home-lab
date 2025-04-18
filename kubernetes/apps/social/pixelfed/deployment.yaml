@@ -19,8 +19,8 @@ spec:
           command: ["/bin/sh", "-c"]
           args:
             - |
-              export $(printenv | grep -v '^(HOME|HOSTNAME|TERM|PATH|PWD|SHLVL|_|KUBERNETES.*)$')
-              printenv | grep -v '^(HOME|HOSTNAME|TERM|PATH|PWD|SHLVL|_|KUBERNETES.*)$' > .env
+              export $(printenv | grep -v '^(HOME|HOSTNAME|TERM|PATH|PWD|SHLVL|_|KUBERNETES.*|PHP.*)$')
+              printenv | grep -v '^(HOME|HOSTNAME|TERM|PATH|PWD|SHLVL|_|KUBERNETES.*|PHP.*)$' > .env
               mkdir -p /var/www/bootstrap/cache
               chown -R www-data:www-data /var/www/bootstrap/cache
               php artisan migrate --force
