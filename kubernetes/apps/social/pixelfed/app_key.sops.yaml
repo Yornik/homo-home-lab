@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: pixelfed-app-secret
+  namespace: social
+stringData:
+  APP_KEY: ENC[AES256_GCM,data:Q4cFdgMff1hpygUElSfNEz/ixVSz5t1drbqKF7ZczLtvCfZbkHALB7X38Rbr1ostLJvf,iv:oRHhguFX+HHV7t3fJXAl2w9EwHCOqmH4ZQ5fuRHlB2A=,tag:2wMRQl5+Yjb+Np0osmzCBQ==,type:str]
+sops:
+  kms: []
+  gcp_kms: []
+  azure_kv: []
+  hc_vault: []
+  age:
+    - recipient: age1q757hdrk9l7ukrxy7qgjrfu09226kyts59tqh83t5y7q0f0cfy3sv430e0
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBHUWwxbitkNHBBQmlqZUF4
+        VEpmMVFTUTJTc3Q4L2Z0M2ZmVjFWYVE4MHlrCkZoUkNxQjJIRDBkWHFzOXFuYnh5
+        UkQ0dkRTcWR1WklHd2Nqb3UvUjFUVjAKLS0tIGQxT2pGQzJxMm11SWhmV3JIemUr
+        aDdMeDBHQWgwRFJDVlpuQ3hNSXB5dFEKe2rRSCdzx/YDU7L41Pm5e4omI8iY3ZKb
+        HY3AT466TKDRhMLeTcsDHbncSjWrNeV91tk0KefoakTqq8HjdNuVag==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2025-04-18T19:20:52Z"
+  mac: ENC[AES256_GCM,data:cBwYt3F/Z5mcxWqameWonRngaPcpy6d8dol1VZEziwonUjAVWd0zx7+0p1+9Vmln+MzCr0MB3ThbCMP6mFjy5ixOui+3BxaoyhWmBET/Qlzf2hXGlWeYzCzkSi4v2+Tpd3VF1lqr5MqhV5Tc76ncf2mMW+aXq1kJUU4bU3LEOUU=,iv:XUfyKTWnO92gpTfBi2e54YBhgR1+E9p7191UBf9Udo0=,tag:VCnVOCayRf7xaZjcIAzixA==,type:str]
+  pgp: []
+  encrypted_regex: ^(data|stringData)$
+  mac_only_encrypted: true
+  version: 3.9.4
