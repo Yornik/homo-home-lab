@@ -18,7 +18,16 @@ spec:
           image: elestio/pixelfed:v0.12.5
           command: ["/bin/sh", "-c"]
           args:
-            - mkdir -p /var/www/bootstrap/cache && chown -R www-data:www-data /var/www/bootstrap/cache && php artisan migrate --force && php artisan storage:link || true
+            - |
+              export $(printenv | grep -v '^(HOME|HOSTNAME|TERM|PATH|PWD|SHLVL|_|KUBERNETES.*)$')
+              printenv | grep -v '^(HOME|HOSTNAME|TERM|PATH|PWD|SHLVL|_|KUBERNETES.*)$' > .env
+              mkdir -p /var/www/bootstrap/cache
+              chown -R www-data:www-data /var/www/bootstrap/cache
+              php artisan migrate --force
+              php artisan storage:link || true
+              php artisan config:cache || true
+              php artisan route:cache || true
+              php artisan view:cache || true
           envFrom:
             - secretRef:
                 name: pixelfed-smtp-secret
@@ -58,6 +67,10 @@ spec:
               value: redis
             - name: DB_CONNECTION
               value: pgsql
+            - name: ACTIVITY_PUB
+              value: "true"
+            - name: ACTIVITY_PUB_ENABLED
+              value: "true"
           volumeMounts:
             - name: media
               mountPath: /var/www/storage
@@ -117,6 +130,10 @@ spec:
               value: redis
             - name: DB_CONNECTION
               value: pgsql
+            - name: ACTIVITY_PUB
+              value: "true"
+            - name: ACTIVITY_PUB_ENABLED
+              value: "true"
           ports:
             - containerPort: 80
           volumeMounts:
