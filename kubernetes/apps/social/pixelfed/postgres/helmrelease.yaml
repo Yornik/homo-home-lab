@@ -8,7 +8,7 @@ spec:
   releaseName: pixelfed-postgresql
   chartRef:
     kind: OCIRepository
-    name: bitnami
+    name: bitnami-postgres
     namespace: flux-system
   values:
     architecture: standalone
