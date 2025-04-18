@@ -22,7 +22,11 @@ spec:
           envFrom:
             - secretRef:
                 name: pixelfed-smtp-secret
+            - secretRef:
+                name: pixelfed-app-secret
           env:
+            - name: VIEW_COMPILED_PATH
+              value: /var/www/bootstrap/cache
             - name: APP_URL
               value: https://pics.fedishark.eu
             - name: REDIS_HOST
@@ -48,6 +52,10 @@ spec:
                   key: password
             - name: APP_ENV
               value: production
+            - name: SESSION_DRIVER
+              value: redis
+            - name: DB_CONNECTION
+              value: pgsql
           volumeMounts:
             - name: media
               mountPath: /var/www/storage
@@ -69,7 +77,11 @@ spec:
           envFrom:
             - secretRef:
                 name: pixelfed-smtp-secret
+            - secretRef:
+                name: pixelfed-app-secret
           env:
+            - name: VIEW_COMPILED_PATH
+              value: /var/www/bootstrap/cache
             - name: APP_NAME
               value: Pixelfed
             - name: APP_ENV
@@ -97,6 +109,10 @@ spec:
               value: redis
             - name: QUEUE_DRIVER
               value: redis
+            - name: SESSION_DRIVER
+              value: redis
+            - name: DB_CONNECTION
+              value: pgsql
           ports:
             - containerPort: 80
           volumeMounts:
