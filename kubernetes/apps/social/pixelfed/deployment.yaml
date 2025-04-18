@@ -13,9 +13,6 @@ spec:
       labels:
         app: pixelfed
     spec:
-      dependsOn:
-        - name: pixelfed-postgresql
-          namespace: social
       initContainers:
         - name: init-pixelfed
           image: elestio/pixelfed:v0.12.5
@@ -56,7 +53,7 @@ spec:
               mountPath: /var/www/storage
       containers:
         - name: pixelfed
-          image: elestio/pixelfed:0.12.5
+          image: elestio/pixelfed:v0.12.5
           livenessProbe:
             httpGet:
               path: /health

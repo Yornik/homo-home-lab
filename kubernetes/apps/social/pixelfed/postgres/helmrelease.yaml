@@ -5,14 +5,22 @@ metadata:
   namespace: social
 spec:
   interval: 5m
+  wait: true
   chart:
     spec:
       chart: postgresql
-      version: "16.6.3"
       sourceRef:
-        kind: HelmRepository
+        kind: OCIRepository
         name: bitnami
         namespace: flux-system
+      version: "~16.6.3"
+      interval: 1h
+      ref:
+        semver: ">=16.0.0 <17.0.0"
+      sourceRef:
+        kind: OCIRepository
+        name: bitnami
+        namespace: flux-system  
   values:
     architecture: standalone
     auth:
