@@ -17,10 +17,6 @@ spec:
       interval: 1h
       ref:
         semver: ">=16.0.0 <17.0.0"
-      sourceRef:
-        kind: OCIRepository
-        name: bitnami
-        namespace: flux-system  
   values:
     architecture: standalone
     auth:
