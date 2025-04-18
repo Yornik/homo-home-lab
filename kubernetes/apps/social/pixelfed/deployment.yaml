@@ -17,6 +17,7 @@ spec:
         - name: init-pixelfed
           image: elestio/pixelfed:v0.12.5
           command: ["/bin/sh", "-c"]
+          workingDir: /var/www
           args:
             - |
               mkdir -p /var/www/bootstrap/cache
