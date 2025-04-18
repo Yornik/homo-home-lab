@@ -4,19 +4,11 @@ metadata:
   name: pixelfed-postgresql
   namespace: social
 spec:
-  interval: 5m
-  wait: true
-  chart:
-    spec:
-      chart: postgresql
-      sourceRef:
-        kind: OCIRepository
-        name: bitnami
-        namespace: flux-system
-      version: "~16.6.3"
-      interval: 1h
-      ref:
-        semver: ">=16.0.0 <17.0.0"
+  interval: 10m
+  releaseName: pixelfed-postgresql
+  chartRef:
+    kind: OCIRepository
+    name: pixelfed-postgresql
   values:
     architecture: standalone
     auth:
