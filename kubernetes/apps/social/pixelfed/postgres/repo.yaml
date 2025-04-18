@@ -1,8 +1,10 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
-  name: bitnami
-  namespace: flux-system
+  name: pixelfed-postgresql
+  namespace: social
 spec:
-  interval: 1h0m0s
-  url: oci://registry-1.docker.io/bitnamicharts
+  interval: 10m
+  url: oci://registry-1.docker.io/bitnamicharts/postgresql
+  ref:
+    semver: "16.6.3"
