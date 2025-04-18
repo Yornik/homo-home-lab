@@ -6,9 +6,14 @@ metadata:
 spec:
   interval: 10m
   releaseName: pixelfed-postgresql
-  chartRef:
-    kind: OCIRepository
-    name: pixelfed-postgresql
+  chart:
+    spec:
+      chart: postgresql
+      version: "17.4.0"
+      sourceRef:
+        kind: OCIRepository
+        name: bitnami
+        namespace: flux-system
   values:
     architecture: standalone
     auth:
