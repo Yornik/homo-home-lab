@@ -18,7 +18,7 @@ spec:
           image: elestio/pixelfed:v0.12.5
           command: ["/bin/sh", "-c"]
           args:
-            - php artisan migrate --force && php artisan storage:link || true
+            - mkdir -p /var/www/bootstrap/cache && chown -R www-data:www-data /var/www/bootstrap/cache && php artisan migrate --force && php artisan storage:link || true
           envFrom:
             - secretRef:
                 name: pixelfed-smtp-secret
@@ -41,6 +41,8 @@ spec:
               value: redis
             - name: DB_HOST
               value: pixelfed-postgresql.social.svc.cluster.local
+            - name: DB_PORT
+              value: "5432"
             - name: DB_DATABASE
               value: pixelfed
             - name: DB_USERNAME
@@ -94,6 +96,8 @@ spec:
               value: pixelfed
             - name: DB_USERNAME
               value: pixelfed
+            - name: DB_PORT
+              value: "5432"
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
