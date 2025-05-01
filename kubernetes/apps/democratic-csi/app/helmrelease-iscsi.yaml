@@ -49,15 +49,8 @@ spec:
               targetGroupInitiatorGroup: 6
               targetGroupAuthType: None
 
-    controller:
-      driver:
-        image:
-          tag: next
 
     node:
-      driver:
-        image:
-          tag: next
         extraEnv:
           - name: ISCSIADM_HOST_STRATEGY
             value: nsenter

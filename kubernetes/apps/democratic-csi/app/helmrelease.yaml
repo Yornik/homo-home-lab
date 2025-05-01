@@ -55,11 +55,3 @@ spec:
           shareHost: 192.168.1.42
           shareMaprootUser: root
           shareMaprootGroup: root
-    node:
-      driver:
-        image:
-          tag: next
-    controller:
-      driver:
-        image:
-          tag: next
