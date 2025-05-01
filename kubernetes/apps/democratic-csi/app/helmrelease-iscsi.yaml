@@ -47,10 +47,9 @@ spec:
           targetGroups:
             - targetGroupPortalGroup: 1
               targetGroupInitiatorGroup: 6
-              targetGroupAuthType: None
-
 
     node:
+      driver:
         extraEnv:
           - name: ISCSIADM_HOST_STRATEGY
             value: nsenter
