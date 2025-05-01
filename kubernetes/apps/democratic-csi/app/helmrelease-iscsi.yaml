@@ -22,7 +22,7 @@ spec:
   values:
     csiDriver:
       name: "org.democratic-csi.iscsi"
-  
+
     storageClasses:
       - name: truenas-iscsi
         defaultClass: false
@@ -31,6 +31,7 @@ spec:
         allowVolumeExpansion: true
         parameters:
           fsType: xfs
+
     driver:
       config:
         driver: freenas-api-iscsi
@@ -56,9 +57,12 @@ spec:
           tag: next
 
     node:
+      hostPID: true
       driver:
         image:
           tag: next
+        securityContext:
+          privileged: true
         extraEnv:
           - name: ISCSIADM_HOST_STRATEGY
             value: nsenter
@@ -66,4 +70,28 @@ spec:
             value: /usr/local/sbin/iscsiadm
         iscsiDirHostPath: /usr/local/etc/iscsi
         iscsiDirHostPathType: ""
-      hostPID: true
+
+        volumeMounts:
+          - name: dev
+            mountPath: /dev
+          - name: sys
+            mountPath: /sys
+          - name: kubelet-pods
+            mountPath: /var/lib/kubelet/pods
+          - name: kubelet-plugins
+            mountPath: /var/lib/kubelet/plugins
+
+      volumes:
+        - name: dev
+          hostPath:
+            path: /dev
+        - name: sys
+          hostPath:
+            path: /sys
+        - name: kubelet-pods
+          hostPath:
+            path: /var/lib/kubelet/pods
+        - name: kubelet-plugins
+          hostPath:
+            path: /var/lib/kubelet/plugins
+

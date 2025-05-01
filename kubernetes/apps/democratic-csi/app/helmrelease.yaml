@@ -22,7 +22,7 @@ spec:
   values:
     csiDriver:
       name: "org.democratic-csi.nfs"
-  
+
     storageClasses:
       - name: truenas-nfs
         defaultClass: true
@@ -32,9 +32,9 @@ spec:
         parameters:
           fsType: nfs
         mountOptions:
-            - noatime
-            - nfsvers=4
-    
+          - noatime
+          - nfsvers=4
+
     driver:
       config:
         driver: freenas-api-nfs
@@ -56,11 +56,39 @@ spec:
           shareHost: 192.168.1.42
           shareMaprootUser: root
           shareMaprootGroup: root
-    node:
-      driver:
-        image:
-          tag: next
+
     controller:
       driver:
         image:
           tag: next
+
+    node:
+      hostPID: true
+      driver:
+        image:
+          tag: next
+        securityContext:
+          privileged: true
+        volumeMounts:
+          - name: dev
+            mountPath: /dev
+          - name: sys
+            mountPath: /sys
+          - name: kubelet-pods
+            mountPath: /var/lib/kubelet/pods
+          - name: kubelet-plugins
+            mountPath: /var/lib/kubelet/plugins
+
+      volumes:
+        - name: dev
+          hostPath:
+            path: /dev
+        - name: sys
+          hostPath:
+            path: /sys
+        - name: kubelet-pods
+          hostPath:
+            path: /var/lib/kubelet/pods
+        - name: kubelet-plugins
+          hostPath:
+            path: /var/lib/kubelet/plugins
