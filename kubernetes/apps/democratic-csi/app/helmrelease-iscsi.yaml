@@ -68,8 +68,8 @@ spec:
             value: nsenter
           - name: ISCSIADM_HOST_PATH
             value: /usr/local/sbin/iscsiadm
-        iscsiDirHostPath: /etc/iscsi
-        iscsiDirHostPathType: Directory
+        iscsiDirHostPath: /var/lib/iscsi
+        iscsiDirHostPathType: ""
         volumeMounts:
           - name: dev
             mountPath: /dev
