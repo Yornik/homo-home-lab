@@ -47,6 +47,7 @@ spec:
           targetGroups:
             - targetGroupPortalGroup: 1
               targetGroupInitiatorGroup: 6
+              targetGroupAuthType: None
 
     node:
       driver:
