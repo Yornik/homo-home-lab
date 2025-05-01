@@ -46,6 +46,7 @@ spec:
           allowInsecure: false
         zfs:
           datasetParentName: 'Big_Pool/k8s'
+          detachedSnapshotsDatasetParentName: 'Big_Pool/k8s_snapshots'
           datasetEnableQuotas: true
           datasetEnableReservation: false
           datasetPermissionsMode: "0777"
